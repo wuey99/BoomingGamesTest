@@ -1,0 +1,125 @@
+<manifest>
+  <folder name="root">
+    <folder name="system">
+      <resource name="XLogicObjectXMap" type=".as" path="Common\\Containers\\XLogicObjectXMap" src="XLogicObjectXMap.as" dst="XLogicObjectXMap.swf">
+        <classX name="XLogicObjectXMap"/>
+      </resource>
+      <resource name="ErrorImages" type=".fla" path="Common\\Images\\Error" src="ErrorImages.fla" dst="ErrorImages.swf">
+        <classX name="undefinedClass"/>
+      </resource>
+      <resource name="ManipulatorRings" type=".fla" path="Common\\Tiki\\UI\\ManipulatorRings" src="ManipulatorRings.fla" dst="ManipulatorRings.swf">
+        <classX name="Pickup_Ring"/>
+        <classX name="Move_Ring"/>
+        <classX name="Resize_Ring"/>
+        <classX name="Rotate_Ring"/>
+      </resource>
+      <resource name="Cursors" type=".fla" path="Common\\Images\\Cursors" src="cursors.fla" dst="cursors.swf">
+        <classX name="CursorClass"/>
+      </resource>
+      <resource name="TikiXMapEditorIcons" type=".fla" path="Common\\Tiki\\UI\\TikiXMapEditorIcons" src="TikiXMapEditorIcons.fla" dst="TikiXMapEditorIcons.swf">
+        <classX name="Pointer_Button"/>
+        <classX name="Hand_Button"/>
+        <classX name="Zoom_Button"/>
+        <classX name="Cross_Button"/>
+        <classX name="DocumentSave_Button"/>
+        <classX name="Tiles_Button"/>
+        <classX name="Test_Button"/>
+      </resource>
+      <resource name="ItemGrabber" type=".fla" path="Common\\Tiki\\UI\\ItemGrabber" src="ItemGrabber.fla" dst="ItemGrabber.swf">
+        <classX name="ItemGrabber"/>
+      </resource>
+      <resource name="RotatingXLogicObject" type=".as" path="Common\\Test\\RotatingXLogicObject" src="RotatingXLogicObject.as" dst="RotatingXLogicObject.swf">
+        <classX name="RotatingXLogicObject"/>
+      </resource>
+      <resource name="RotatingXLogicObject2" type=".as" path="Common\\Test\\RotatingXLogicObject2" src="RotatingXLogicObject2.as" dst="RotatingXLogicObject2.swf">
+        <classX name="RotatingXLogicObject2"/>
+      </resource>
+      <resource name="CX" type=".fla" path="Common\\CX" src="CX.fla" dst="CX.swf">
+        <classX name="CXClass"/>
+        <classX name="CX_SOLID"/>
+        <classX name="CX_SOFT"/>
+        <classX name="CX_JUMP_THRU"/>
+        <classX name="CX_UL45"/>
+        <classX name="CX_UR45"/>
+        <classX name="CX_LL45"/>
+        <classX name="CX_LR45"/>
+        <classX name="CX_UL225"/>
+        <classX name="CX_UR225"/>
+        <classX name="CX_LL225"/>
+        <classX name="CX_LR225"/>
+        <classX name="CX_UL675"/>
+        <classX name="CX_UR675"/>
+        <classX name="CX_LL675"/>
+        <classX name="CX_LR675"/>
+        <classX name="CX_SOFTLF"/>
+        <classX name="CX_SOFTRT"/>
+        <classX name="CX_SOFTUP"/>
+        <classX name="CX_SOFTDN"/>
+        <classX name="CX_SOLIDX001"/>
+        <classX name="CX_DEATH"/>
+        <classX name="CX_ICE"/>
+      </resource>
+    </folder>
+    <folder name="sprites">
+      <folder name="Common">
+        <folder name="ui">
+          <resource name="@StandardButton" type=".pmp" embed="false" path="Common" src="F664A9D2-6DC1-02B2-93BC-170C0C94E2B7-StandardButton.pmp" dst="F664A9D2-6DC1-02B2-93BC-170C0C94E2B7-StandardButton.pmp" pmp_width="512" originX="0" originY="0" width="32" totalWidth="32" height="32" regX="0" regY="0"/>
+        </folder>
+      </folder>
+      <folder name="Test">
+        <resource name="@OctopusBug" type=".pmp" embed="false" path="Common" src="8C75E876-FB3A-BF9C-478A-64948BCE7B97-OctopusBug.pmp" dst="8C75E876-FB3A-BF9C-478A-64948BCE7B97-OctopusBug.pmp" pmp_width="512" originX="192" originY="184" width="144" totalWidth="2304" height="138" regX="-65" regY="-72"/>
+        <resource name="png_OctopusBug" type=".png" embed="false" path="Common" src="8C75E876-FB3A-BF9C-478A-64948BCE7B97-OctopusBug.png" dst="8C75E876-FB3A-BF9C-478A-64948BCE7B97-OctopusBug.png"/>
+        <resource name="$OctopusBug" type=".json" embed="false" path="Common" src="8C75E876-FB3A-BF9C-478A-64948BCE7B97-OctopusBug.json" dst="8C75E876-FB3A-BF9C-478A-64948BCE7B97-OctopusBug.json"/>
+        <resource name="OctopusBug" type=".fla" embed="false" path="Common" src="B2D8B6D7-1F2B-E40E-1280-5D9F0FA4BFF4-OctopusBug.fla" dst="B2D8B6D7-1F2B-E40E-1280-5D9F0FA4BFF4-OctopusBug.swf">
+          <classX name="OctopusBug" regX="0" regY="0" width="32" height="32"/>
+        </resource>
+        <resource name="@TestButton" type=".pmp" embed="false" path="Common" src="F443FA5D-FB53-8763-C2F1-51B2A676C243-TestButton.pmp" dst="F443FA5D-FB53-8763-C2F1-51B2A676C243-TestButton.pmp" pmp_width="512" originX="168" originY="218" width="125" totalWidth="625" height="50" regX="0" regY="0"/>
+        <resource name="png_TestButton" type=".png" embed="false" path="Common" src="F443FA5D-FB53-8763-C2F1-51B2A676C243-TestButton.png" dst="F443FA5D-FB53-8763-C2F1-51B2A676C243-TestButton.png"/>
+        <resource name="$TestButton" type=".json" embed="false" path="Common" src="F443FA5D-FB53-8763-C2F1-51B2A676C243-TestButton.json" dst="F443FA5D-FB53-8763-C2F1-51B2A676C243-TestButton.json"/>
+        <resource name="TestButton" type=".fla" embed="false" path="Common" src="B10501A5-8A43-4214-F22E-1107A0AB39B1-TestButton.fla" dst="B10501A5-8A43-4214-F22E-1107A0AB39B1-TestButton.swf">
+          <classX name="TestButton" regX="0" regY="0" width="32" height="32"/>
+        </resource>
+        <resource name="@TestButtonToo" type=".pmp" embed="false" path="Common" src="F3171504-B336-A968-BEDA-0B262E34A2BA-TestButtonToo.pmp" dst="F3171504-B336-A968-BEDA-0B262E34A2BA-TestButtonToo.pmp" pmp_width="512" originX="142" originY="202" width="250" totalWidth="1250" height="100" regX="0" regY="0"/>
+        <resource name="png_TestButtonToo" type=".png" embed="false" path="Common" src="F3171504-B336-A968-BEDA-0B262E34A2BA-TestButtonToo.png" dst="F3171504-B336-A968-BEDA-0B262E34A2BA-TestButtonToo.png"/>
+        <resource name="$TestButtonToo" type=".json" embed="false" path="Common" src="F3171504-B336-A968-BEDA-0B262E34A2BA-TestButtonToo.json" dst="F3171504-B336-A968-BEDA-0B262E34A2BA-TestButtonToo.json"/>
+        <resource name="TestButtonToo" type=".fla" embed="false" path="Common" src="CE90AE75-8210-3636-9474-F502A0F84935-TestButtonToo.fla" dst="CE90AE75-8210-3636-9474-F502A0F84935-TestButtonToo.swf">
+          <classX name="TestButtonToo" regX="0" regY="0" width="32" height="32"/>
+        </resource>
+      </folder>
+      <folder name="startup"/>
+      <folder name="Booming">
+        <folder name="Blocks">
+          <resource name="@Block_Hay" type=".pmp" embed="false" path="Common" src="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" dst="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" pmp_width="1024" originX="0" originY="0" width="32" totalWidth="32" height="32" regX="0" regY="0"/>
+          <resource name="@Block_Wall" type=".pmp" embed="false" path="Common" src="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" dst="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" pmp_width="1024" originX="0" originY="0" width="32" totalWidth="32" height="32" regX="0" regY="0"/>
+        </folder>
+      </folder>
+    </folder>
+    <folder name="Sketches">
+      <resource name="#Sketch001" type=".pmp" embed="false" path="Common" src="65B9669A-4F2D-D829-78C6-615EF4C5F524-Sketch001.pmp" dst="65B9669A-4F2D-D829-78C6-615EF4C5F524-Sketch001.pmp"/>
+    </folder>
+    <folder name="tilesets">
+      <resource name="#Tileset001" type=".pmp" embed="false" path="common" src="8F9C3C92-B878-CE95-EFFA-E310311A875C-Tileset001.pmp" dst="8F9C3C92-B878-CE95-EFFA-E310311A875C-Tileset001.pmp" tileXML="PGZsYT4NCTxtb3ZpZUNsaXAgY2xhc3NOYW1lPSJUaWxlc2V0MDAxIiB4PSI2NCIgeT0iNjQiIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZHg9IjAiIGR5PSIwIiBjb2xzPSIxNiIgcm93cz0iMzkiIHJlZ1g9IjAiIHJlZ1k9IjAiLz4NPC9mbGE+"/>
+      <resource name="png_Tileset001" type=".png" embed="false" path="Common" src="8F9C3C92-B878-CE95-EFFA-E310311A875C-Tileset001.png" dst="8F9C3C92-B878-CE95-EFFA-E310311A875C-Tileset001.png"/>
+      <resource name="$Tileset001" type=".json" embed="false" path="Common" src="8F9C3C92-B878-CE95-EFFA-E310311A875C-Tileset001.json" dst="8F9C3C92-B878-CE95-EFFA-E310311A875C-Tileset001.json"/>
+      <resource name="Tileset001" type=".fla" embed="false" path="Common" src="FF361D80-FD2F-5EAE-820A-9BAE19E94BE3-Tileset001.fla" dst="FF361D80-FD2F-5EAE-820A-9BAE19E94BE3-Tileset001.swf">
+        <classX name="Tileset001" regX="0" regY="0" width="32" height="32"/>
+      </resource>
+    </folder>
+    <folder name="Levels">
+      <resource name="@Test001" type=".xmap" path="Common" src="2F37B559-F935-9AE0-FAD2-574DD88E84FA-Test001.xmap" dst="2F37B559-F935-9AE0-FAD2-574DD88E84FA-Test001.swf" embed="false"/>
+      <resource name="Test001" type=".as" embed="false" path="Common" src="398A30F2-E1D7-A465-5CAD-BC7DB4E44085-Test001.as" dst="398A30F2-E1D7-A465-5CAD-BC7DB4E44085-Test001.swf">
+        <classX name="Test001" regX="0" regY="0" width="32" height="32"/>
+      </resource>
+    </folder>
+    <folder name="Tiles">
+      <resource name="@AllTiles" type=".xmap" path="common" src="17C7F31E-09B6-9DCA-F349-EFA1C4A1E6E6-AllTiles.xmap" dst="17C7F31E-09B6-9DCA-F349-EFA1C4A1E6E6-AllTiles.swf" embed="false"/>
+    </folder>
+    <folder name="Items">
+      <resource name="OctopusBug_Item" type=".item" embed="false" path="" src="" dst="">
+        <XMapItem logicClassName="$OctopusBug" hasLogic="true" imageClassName="OctopusBug:OctopusBug" boundingRect="">
+          <params/>
+        </XMapItem>
+      </resource>
+    </folder>
+  </folder>
+</manifest>

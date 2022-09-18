@@ -91,7 +91,7 @@ import { XNumber } from '../../engine/task/XNumber';
 		// create sprites
 		//------------------------------------------------------------------------------------------
 		public createSprites ():void {
-            this.m_sprite = this.createAnimatedSprite ("OctopusBug");
+            this.m_sprite = this.createAnimatedSpriteX ("OctopusBug");
             this.addSortableChild (this.m_sprite, 0, 0.0, false);
     
             this.show ();

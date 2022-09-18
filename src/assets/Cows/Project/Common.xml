@@ -89,11 +89,26 @@
       <folder name="startup"/>
       <folder name="Booming">
         <folder name="Blocks">
-          <resource name="@Block_Hay" type=".pmp" embed="false" path="Common" src="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" dst="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" pmp_width="1024" originX="0" originY="0" width="32" totalWidth="32" height="32" regX="0" regY="0"/>
-          <resource name="@Block_Wall" type=".pmp" embed="false" path="Common" src="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" dst="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" pmp_width="1024" originX="0" originY="0" width="32" totalWidth="32" height="32" regX="0" regY="0"/>
+          <resource name="@Block_Hay" type=".pmp" embed="false" path="Common" src="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" dst="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" pmp_width="1024" originX="494" originY="494" width="35" totalWidth="35" height="35" regX="0" regY="0"/>
+          <resource name="png_Block_Hay" type=".png" embed="false" path="Common" src="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.png" dst="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.png"/>
+          <resource name="$Block_Hay" type=".json" embed="false" path="Common" src="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.json" dst="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.json"/>
+          <resource name="Block_Hay" type=".fla" embed="false" path="Common" src="67F177E3-F056-41C8-5F44-012E51EF78BE-Block_Hay.fla" dst="67F177E3-F056-41C8-5F44-012E51EF78BE-Block_Hay.swf">
+            <classX name="Block_Hay" regX="0" regY="0" width="32" height="32"/>
+          </resource>
+          <resource name="@Block_Wall" type=".pmp" embed="false" path="Common" src="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" dst="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" pmp_width="1024" originX="494" originY="494" width="35" totalWidth="35" height="35" regX="0" regY="0"/>
+          <resource name="png_Block_Wall" type=".png" embed="false" path="Common" src="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.png" dst="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.png"/>
+          <resource name="$Block_Wall" type=".json" embed="false" path="Common" src="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.json" dst="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.json"/>
+          <resource name="Block_Wall" type=".fla" embed="false" path="Common" src="6580AE31-4957-21BC-E6CE-5FF8EB707401-Block_Wall.fla" dst="6580AE31-4957-21BC-E6CE-5FF8EB707401-Block_Wall.swf">
+            <classX name="Block_Wall" regX="0" regY="0" width="32" height="32"/>
+          </resource>
         </folder>
         <folder name="Tanks">
-          <resource name="@Tanks" type=".pmp" embed="false" path="Common" src="D9041538-137A-03E2-0D42-5C35F4EA3808-Tanks.pmp" dst="D9041538-137A-03E2-0D42-5C35F4EA3808-Tanks.pmp" pmp_width="1024" originX="0" originY="0" width="32" totalWidth="32" height="32" regX="0" regY="0"/>
+          <resource name="@Tanks" type=".pmp" embed="false" path="Common" src="D9041538-137A-03E2-0D42-5C35F4EA3808-Tanks.pmp" dst="D9041538-137A-03E2-0D42-5C35F4EA3808-Tanks.pmp" pmp_width="1024" originX="494" originY="494" width="35" totalWidth="105" height="35" regX="-18" regY="-20"/>
+          <resource name="png_Tanks" type=".png" embed="false" path="Common" src="D9041538-137A-03E2-0D42-5C35F4EA3808-Tanks.png" dst="D9041538-137A-03E2-0D42-5C35F4EA3808-Tanks.png"/>
+          <resource name="$Tanks" type=".json" embed="false" path="Common" src="D9041538-137A-03E2-0D42-5C35F4EA3808-Tanks.json" dst="D9041538-137A-03E2-0D42-5C35F4EA3808-Tanks.json"/>
+          <resource name="Tanks" type=".fla" embed="false" path="Common" src="C0438CA1-FC2F-65E2-17F2-0C5C12787147-Tanks.fla" dst="C0438CA1-FC2F-65E2-17F2-0C5C12787147-Tanks.swf">
+            <classX name="Tanks" regX="0" regY="0" width="32" height="32"/>
+          </resource>
         </folder>
       </folder>
     </folder>

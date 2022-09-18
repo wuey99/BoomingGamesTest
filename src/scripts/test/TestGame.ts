@@ -19,19 +19,9 @@ import { OctopusBugX } from './OctopusBugX';
 import { GUID } from '../../engine/utils/GUID';
 import { FlockLeader } from './FlockLeader';
 import { XSimpleXMLNode } from '../../engine/xml/XSimpleXMLNode';
-import * as SFS2X from "sfs2x-api";
-import { SFSManager } from '../../engine/sfs/SFSManager';
-import { XSpriteButton } from '../../engine/ui/XSpriteButton';
-import { XTextButton } from '../../engine/ui/XTextButton';
-import { XTextSpriteButton } from '../../engine/ui/XTextSpriteButton';
-import { XTextSprite } from '../../engine/sprite/XTextSprite';
-import { TextInput } from 'pixi-textinput-v5';
-import { XLevel } from '../../engine/level/XLevel';
-import { XProcess } from '../../engine/process/XProcess';
 
 //------------------------------------------------------------------------------------------
 export class TestGame extends XState {
-	public static HUD_LAYER:number = 7;
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -49,7 +39,7 @@ export class TestGame extends XState {
 	public afterSetup (__params:Array<any> = null):XGameObject {
         super.afterSetup (__params);
 
-		var __leader:FlockLeader = world.addGameObject (FlockLeader, TestGame.HUD_LAYER, 0.0, false) as FlockLeader;
+		var __leader:FlockLeader = world.addGameObject (FlockLeader, 0, 0.0, false) as FlockLeader;
 		__leader.afterSetup ([]);
 
 		return this;

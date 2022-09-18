@@ -16,6 +16,9 @@ import { XGameController } from '../../engine/state/XGameController';
 import { TestGame } from './TestGame';
 import { XSimpleXMLNode } from '../../engine/xml/XSimpleXMLNode';
 import { TestGameInstance } from './TestGameInstance';
+import { XTextureManager } from '../../engine/texture/XTextureManager';
+import { XSubTextureManager } from '../../engine/texture/XSubTextureManager';
+import { G } from '../../engine/app/G';
 
 //------------------------------------------------------------------------------------------
 export class TestGameController extends XGameController {
@@ -59,6 +62,8 @@ export class TestGameController extends XGameController {
 				() => { 
 					this.m_XApp.getXProjectManager ().startAllResourceManagers ();
 
+					this.cacheTextures ();
+
 					this.getGameInstance ().gotoState ("TestGame");
 				},
 
@@ -76,6 +81,17 @@ export class TestGameController extends XGameController {
 //------------------------------------------------------------------------------------------
 	public getGameInstanceClass ():any {
 		return TestGameInstance;
+	}
+
+//------------------------------------------------------------------------------------------
+	public cacheTextures ():void {
+        var __subManager:XSubTextureManager = G.XApp.getTextureManager ().createSubManager ("__global__");
+        __subManager.start ();
+        __subManager.addFromSpritesheet ("OctopusBug");
+		__subManager.addFromSpritesheet ("Block_Hay");
+		__subManager.addFromSpritesheet ("Block_Wall");
+		__subManager.addFromSpritesheet ("Tanks");
+        __subManager.finish ();
 	}
 
 //------------------------------------------------------------------------------------------

@@ -19,6 +19,7 @@ import { TestGameInstance } from './TestGameInstance';
 import { XTextureManager } from '../../engine/texture/XTextureManager';
 import { XSubTextureManager } from '../../engine/texture/XSubTextureManager';
 import { G } from '../../engine/app/G';
+import { XProcess } from '../../engine/process/XProcess';
 
 //------------------------------------------------------------------------------------------
 export class TestGameController extends XGameController {
@@ -39,36 +40,34 @@ export class TestGameController extends XGameController {
 	public afterSetup (__params:Array<any> = null):XGameObject {
 		super.afterSetup (__params);
 
+		var self:TestGameController = this;
+
+		// register all the game's states
 		this.getGameInstance ().registerState ("TestGame", TestGame);
 
+		// pause async loading of assets
 		this.m_XApp.getXProjectManager ().pauseAllResourceManagers ();
 
-		this.addTask ([
-				XTask.WAIT, 0x0100,
+		// restart async loading for the following asset groups
+		this.m_XApp.getXProjectManager ().startResourceManagersByName (["default", "Common", "Preload", "Test"]);
 
-				() => {
-					this.m_XApp.getXProjectManager ().startResourceManagersByName (["default", "Common", "Preload", "Test"]);
-				},
+		this.addProcess (
+			function * () {
+				// wait until the following asset groups are completely loaded before continuing
+				while (!self.m_XApp.getXProjectManager ().getLoadCompleteByGroups (["Common", "Preload", "Test"])) {
+					yield [XProcess.WAIT, 0x0100];
+				}
 
-				XTask.LABEL, "loopAssets",
-					XTask.WAIT, 0x0100,
+				// restart async loading for the remainder of the game's assets
+				self.m_XApp.getXProjectManager ().startAllResourceManagers ();
 
-					XTask.FLAGS, (__task:XTask) => {
-						__task.ifTrue (
-							this.m_XApp.getXProjectManager ().getLoadCompleteByGroups (["Common", "Preload", "Test"])
-						);
-					}, XTask.BNE, "loopAssets",
+				// create a unified sprite sheet
+				self.createUnifiedSpritesheet ();
 
-				() => { 
-					this.m_XApp.getXProjectManager ().startAllResourceManagers ();
-
-					this.cacheTextures ();
-
-					this.getGameInstance ().gotoState ("TestGame");
-				},
-
-			XTask.RETN,
-		]);
+				// goto the TestGame state
+				self.getGameInstance ().gotoState ("TestGame");
+			}
+		);
 
 		return this;
 	}
@@ -84,7 +83,11 @@ export class TestGameController extends XGameController {
 	}
 
 //------------------------------------------------------------------------------------------
-	public cacheTextures ():void {
+// create a single, unified sprite sheet
+//
+// this is required for PIXI.ParticleContainer's
+//------------------------------------------------------------------------------------------
+	public createUnifiedSpritesheet ():void {
         var __subManager:XSubTextureManager = G.XApp.getTextureManager ().createSubManager ("__global__");
         __subManager.start ();
         __subManager.addFromSpritesheet ("OctopusBug");

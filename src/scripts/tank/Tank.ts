@@ -15,9 +15,12 @@ import { XType } from '../../engine/type/XType';
 import { XGameObject} from '../../engine/gameobject/XGameObject';
 import { XGameObjectCX} from '../../engine/gameobject/XGameObjectCX';
 import { G } from '../../engine/app/G';
+import { XProcess } from '../../engine/process/XProcess';
 
 //------------------------------------------------------------------------------------------
 export class Tank extends XGameObject {
+	public m_sprite:PIXI.AnimatedSprite;
+
     public script:XTask;
     public gravity:XTask;
 
@@ -44,6 +47,10 @@ export class Tank extends XGameObject {
 
 		this.setCX (-16, +16, -16, +16);
 
+		this.createSprites ();
+
+		this.script = this.addEmptyTask ();
+
         this.Idle_Script ();
 
 		this.m_keysPressed = new Map<string, number> ();
@@ -62,6 +69,14 @@ export class Tank extends XGameObject {
 		]);
 
 		return this;
+	}
+
+//------------------------------------------------------------------------------------------
+	public cleanup ():void {
+		super.cleanup ();
+
+		document.removeEventListener ('keydown', this.m_keyDownHandler);
+		document.addEventListener ('keyup', this.m_keyUpHandler);
 	}
 
 //------------------------------------------------------------------------------------------
@@ -102,6 +117,9 @@ export class Tank extends XGameObject {
 
 	//------------------------------------------------------------------------------------------
 	public createSprites ():void {
+        this.m_sprite = this.createAnimatedSpriteX ("Tanks");
+        this.addSortableChild (this.m_sprite, this.getLayer (), this.getDepth (), false);
+
 		this.show ();
 	}
 
@@ -118,6 +136,7 @@ export class Tank extends XGameObject {
 					XTask.LABEL, "loop",
 						XTask.WAIT, 0x0100,
 						 () => {
+							this.angle += 1.0;
 						 },
 
 						XTask.GOTO, "loop",
@@ -132,6 +151,10 @@ export class Tank extends XGameObject {
 			XTask.LABEL, "loop",
                 XTask.WAIT, 0x0100,
 					
+				() => {
+					this.m_sprite.gotoAndStop (2);
+				},
+
 				XTask.GOTO, "loop",
 				
 			XTask.RETN,

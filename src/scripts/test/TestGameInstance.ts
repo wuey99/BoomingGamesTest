@@ -30,20 +30,11 @@ export class TestGameInstance extends XGameInstance {
 //------------------------------------------------------------------------------------------
 	public setup (__world:XWorld):void {
         super.setup (__world);
-
-        this.__initLogicClassNames ();
 	}
 	
 //------------------------------------------------------------------------------------------
 	public cleanup ():void {
         super.cleanup ();
-    }
-
-//------------------------------------------------------------------------------------------
-    public __initLogicClassNames ():void {
-        this.initLogicClassNames ([
-            "__OctopusBug", OctopusBugX,
-        ]);
     }
 
 //------------------------------------------------------------------------------------------

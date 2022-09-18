@@ -92,6 +92,9 @@
           <resource name="@Block_Hay" type=".pmp" embed="false" path="Common" src="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" dst="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" pmp_width="1024" originX="0" originY="0" width="32" totalWidth="32" height="32" regX="0" regY="0"/>
           <resource name="@Block_Wall" type=".pmp" embed="false" path="Common" src="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" dst="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" pmp_width="1024" originX="0" originY="0" width="32" totalWidth="32" height="32" regX="0" regY="0"/>
         </folder>
+        <folder name="Tanks">
+          <resource name="@Tanks" type=".pmp" embed="false" path="Common" src="D9041538-137A-03E2-0D42-5C35F4EA3808-Tanks.pmp" dst="D9041538-137A-03E2-0D42-5C35F4EA3808-Tanks.pmp" pmp_width="1024" originX="0" originY="0" width="32" totalWidth="32" height="32" regX="0" regY="0"/>
+        </folder>
       </folder>
     </folder>
     <folder name="Sketches">

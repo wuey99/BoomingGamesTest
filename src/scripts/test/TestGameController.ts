@@ -94,6 +94,8 @@ export class TestGameController extends XGameController {
 		__subManager.addFromSpritesheet ("Block_Hay");
 		__subManager.addFromSpritesheet ("Block_Wall");
 		__subManager.addFromSpritesheet ("Tanks");
+		__subManager.addFromSpritesheet ("Shot");
+		__subManager.addFromSpritesheet ("Arrow");
         __subManager.finish ();
 	}
 

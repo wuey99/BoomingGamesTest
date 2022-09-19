@@ -19,12 +19,11 @@ import { XProcess } from '../../engine/process/XProcess';
 
 import { Tank } from './Tank';
 import { TestGame } from '../test/TestGame';
+import { PlayfieldObject } from '../common/PlayfieldObject';
 
 //------------------------------------------------------------------------------------------
-export class Fleet extends XGameObject {
+export class Fleet extends PlayfieldObject {
 	public m_sprite:PIXI.AnimatedSprite;
-
-    public m_playfield:TestGame;
 
     public script:XProcess;
 
@@ -38,7 +37,6 @@ export class Fleet extends XGameObject {
 	public m_keysClicked:Map<string, number>;
 
 	public static CHANGE_TANKS_KEY:string = "KeyT";
-
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -55,8 +53,6 @@ export class Fleet extends XGameObject {
 //------------------------------------------------------------------------------------------
 	public afterSetup (__params:Array<any> = null):XGameObject {
         super.afterSetup (__params);
-
-        this.m_playfield = __params[this.m_paramIndex++];
 
 		this.setCX (-16, +16, -16, +16);
 
@@ -134,7 +130,7 @@ export class Fleet extends XGameObject {
         // green tank
         //------------------------------------------------------------------------------------------
         __tank = this.m_playfield.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
-		__tank.afterSetup ([Tank.GREEN, 1, 25]);
+		__tank.afterSetup ([this.m_playfield, Tank.GREEN, 1, 25]);
 
 		__tank.x = __x;
 		__tank.y = __y;
@@ -147,7 +143,7 @@ export class Fleet extends XGameObject {
         // blue tank
         //------------------------------------------------------------------------------------------
         __tank = this.m_playfield.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
-		__tank.afterSetup ([Tank.BLUE, 3, 20]);
+		__tank.afterSetup ([this.m_playfield, Tank.BLUE, 3, 20]);
 
 		__tank.x = __x;
 		__tank.y = __y;
@@ -160,7 +156,7 @@ export class Fleet extends XGameObject {
         // red tank
         //------------------------------------------------------------------------------------------
         __tank = this.m_playfield.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
-		__tank.afterSetup ([Tank.RED, 2, 10]);
+		__tank.afterSetup ([this.m_playfield, Tank.RED, 2, 10]);
 
 		__tank.x = __x;
 		__tank.y = __y;

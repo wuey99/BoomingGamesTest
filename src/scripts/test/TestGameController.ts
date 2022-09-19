@@ -83,9 +83,10 @@ export class TestGameController extends XGameController {
 	}
 
 //------------------------------------------------------------------------------------------
-// create a single, unified sprite sheet
+// create a single, unified sprite sheet using a PIXI.RenderTexture
 //
-// this is required for PIXI.ParticleContainer's
+// the primary layer will be a PIXI.ParticleContainer.  all the game's textures
+// need to be on a single sprite sheet.
 //------------------------------------------------------------------------------------------
 	public createUnifiedSpritesheet ():void {
         var __subManager:XSubTextureManager = G.XApp.getTextureManager ().createSubManager ("__global__");

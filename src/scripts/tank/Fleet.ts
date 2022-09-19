@@ -86,15 +86,11 @@ export class Fleet extends PlayfieldGameObject {
 
 //------------------------------------------------------------------------------------------
 	public keyDownHandler (key:KeyboardEvent):void {
-		console.log (": keyDown: ", key.code);
-
 		this.setKeyPressed (key.code);
 	}
 
 //------------------------------------------------------------------------------------------
 	public keyUpHandler (key:KeyboardEvent):void {
-		console.log (": keyUp: ", key.code);
-
 		this.setKeyReleased (key.code);
 	}
 
@@ -128,8 +124,8 @@ export class Fleet extends PlayfieldGameObject {
         //------------------------------------------------------------------------------------------
         // green tank
         //------------------------------------------------------------------------------------------
-        __tank = this.m_playfield.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
-		__tank.afterSetup ([this.m_playfield, Tank.GREEN, 1, 25]);
+        __tank = this.m_playfieldGridView.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
+		__tank.afterSetup ([this.m_playfieldGridView, Tank.GREEN, 1, 25]);
 
 		__tank.x = __x;
 		__tank.y = __y;
@@ -141,8 +137,8 @@ export class Fleet extends PlayfieldGameObject {
         //------------------------------------------------------------------------------------------
         // blue tank
         //------------------------------------------------------------------------------------------
-        __tank = this.m_playfield.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
-		__tank.afterSetup ([this.m_playfield, Tank.BLUE, 3, 20]);
+        __tank = this.m_playfieldGridView.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
+		__tank.afterSetup ([this.m_playfieldGridView, Tank.BLUE, 3, 20]);
 
 		__tank.x = __x;
 		__tank.y = __y;
@@ -154,8 +150,8 @@ export class Fleet extends PlayfieldGameObject {
         //------------------------------------------------------------------------------------------
         // red tank
         //------------------------------------------------------------------------------------------
-        __tank = this.m_playfield.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
-		__tank.afterSetup ([this.m_playfield, Tank.RED, 2, 10]);
+        __tank = this.m_playfieldGridView.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
+		__tank.afterSetup ([this.m_playfieldGridView, Tank.RED, 2, 10]);
 
 		__tank.x = __x;
 		__tank.y = __y;

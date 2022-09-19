@@ -21,7 +21,7 @@ import { PlayfieldGridView } from '../playfield/PlayfieldGridView';
 
 //------------------------------------------------------------------------------------------
 export class PlayfieldGameObject extends XGameObject {
-    public m_playfield:PlayfieldGridView;
+    public m_playfieldGridView:PlayfieldGridView;
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -39,7 +39,7 @@ export class PlayfieldGameObject extends XGameObject {
 	public afterSetup (__params:Array<any> = null):XGameObject {
         super.afterSetup (__params);
 
-        this.m_playfield = __params[this.m_paramIndex++];
+        this.m_playfieldGridView = __params[this.m_paramIndex++];
 
 		return this;
 	}

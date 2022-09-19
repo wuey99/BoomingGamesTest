@@ -24,7 +24,8 @@ import { PlayfieldTileView } from './PlayfieldTileView';
 //------------------------------------------------------------------------------------------
 export class PlayfieldGridView extends XGameObject {
     public m_playfieldGridModel:PlayfieldGridModel;
-    public m_tileModelToView:Map<PlayfieldTileModel, PlayfieldTileView>;
+
+    public m_tileModelToViewMap:Map<PlayfieldTileModel, PlayfieldTileView>;
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -42,6 +43,13 @@ export class PlayfieldGridView extends XGameObject {
 	public afterSetup (__params:Array<any> = null):XGameObject {
         super.afterSetup (__params);
 
+        this.m_playfieldGridModel = __params[this.m_paramIndex++];
+
+        this.m_tileModelToViewMap = new Map<PlayfieldTileModel, PlayfieldTileView> ();
+
+        this.m_playfieldGridModel.addTileAddedListener (this.onTileAdded.bind (this));
+        this.m_playfieldGridModel.addTileRemovedListener (this.onTileRemoved.bind (this));
+
 		return this;
 	}
 
@@ -49,6 +57,25 @@ export class PlayfieldGridView extends XGameObject {
 	public cleanup ():void {
 		super.cleanup ();
 	}
+
+//------------------------------------------------------------------------------------------
+    public getPlayfieldGridModel ():PlayfieldGridModel {
+        return this.m_playfieldGridModel;
+    }
+
+//------------------------------------------------------------------------------------------
+    public onTileAdded (__model:PlayfieldTileModel):void {
+        if (!this.m_tileModelToViewMap.has (__model)) {
+
+        }
+    }
+
+//------------------------------------------------------------------------------------------
+    public onTileRemoved (__model:PlayfieldTileModel):void {
+        if (this.m_tileModelToViewMap.has (__model)) {
+            
+        }
+    }
 
 //------------------------------------------------------------------------------------------
 }

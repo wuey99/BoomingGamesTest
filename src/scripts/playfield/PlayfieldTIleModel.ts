@@ -7,13 +7,13 @@ import { PlayfieldGridModel } from './PlayfieldGridModel';
 
 //------------------------------------------------------------------------------------------
 export class PlayfieldTileModel {
+    public m_playfieldGridModel:PlayfieldGridModel;
+    
     public m_health:number;
     public m_type:string;
     public m_solid:boolean;
     public m_col:number;
     public m_row:number;
-
-    public m_playfieldGridModel:PlayfieldGridModel;
 
     //------------------------------------------------------------------------------------------
     public new () {

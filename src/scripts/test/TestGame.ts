@@ -18,9 +18,15 @@ import { GUID } from '../../engine/utils/GUID';
 import { XSimpleXMLNode } from '../../engine/xml/XSimpleXMLNode';
 import { Fleet } from '../tank/Fleet';
 import { PlayfieldGridView } from '../playfield/PlayfieldGridView';
+import { PlayfieldGridModel } from '../playfield/PlayfieldGridModel';
 
 //------------------------------------------------------------------------------------------
 export class TestGame extends XState {
+
+	public static GRID_COLS:number = 50;
+	public static GRID_ROWS:number = 50;
+	public static TILE_WIDTH:number = 35;
+	public static TILE_HEIGHT:number = 35;
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -41,8 +47,14 @@ export class TestGame extends XState {
 		// replace layer 0 with a PIXI.ParticleContainer layer
 		this.world.replaceLayer (0, new XSpriteLayer0 ());
 
+		var __playfieldGridModel:PlayfieldGridModel = new PlayfieldGridModel ();
+		__playfieldGridModel.setup (
+			TestGame.GRID_COLS, TestGame.GRID_ROWS,
+			TestGame.TILE_WIDTH, TestGame.TILE_HEIGHT
+		);
+
 		var __playfieldGridView:PlayfieldGridView = this.addGameObjectAsDetachedChild (PlayfieldGridView, 0, 0.0, false) as PlayfieldGridView;
-		__playfieldGridView.afterSetup ([]);
+		__playfieldGridView.afterSetup ([__playfieldGridModel]);
 		
 		var __fleet:Fleet = __playfieldGridView.addGameObjectAsDetachedChild (Fleet, 0, 0.0, false) as Fleet;
 		__fleet.afterSetup ([__playfieldGridView]);

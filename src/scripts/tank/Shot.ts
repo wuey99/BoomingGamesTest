@@ -77,7 +77,7 @@ export class Shot extends PlayfieldGameObject {
 
 	//------------------------------------------------------------------------------------------
 	public Physics_Script ():void {
-		var self:any = this;
+		var self:Shot = this;
 
 		//------------------------------------------------------------------------------------------
 		this.physics.gotoProcess (

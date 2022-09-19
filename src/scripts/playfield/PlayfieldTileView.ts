@@ -21,7 +21,7 @@ import { PlayfieldGameObject } from './PlayfieldGameObject';
 import { PlayfieldGridModel } from './PlayfieldGridModel';
 
 //------------------------------------------------------------------------------------------
-export class PlayfieldTileView extends XGameObject {
+export class PlayfieldTileView extends PlayfieldGameObject {
 
 //------------------------------------------------------------------------------------------	
 	constructor () {

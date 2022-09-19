@@ -115,8 +115,6 @@ export class Tank extends PlayfieldGameObject {
 
 //------------------------------------------------------------------------------------------
 	public keyDownHandler (key:KeyboardEvent):void {
-		console.log (": keyDown: ", key.code);
-
 		if (this.m_hasFocus) {
 			this.setKeyPressed (key.code);
 		}
@@ -124,8 +122,6 @@ export class Tank extends PlayfieldGameObject {
 
 //------------------------------------------------------------------------------------------
 	public keyUpHandler (key:KeyboardEvent):void {
-		console.log (": keyUp: ", key.code);
-
 		this.setKeyReleased (key.code);
 	}
 
@@ -175,7 +171,7 @@ export class Tank extends PlayfieldGameObject {
 
 	//------------------------------------------------------------------------------------------
 	public Physics_Script ():void {
-		var self:any = this;
+		var self:Tank = this;
 
 		//------------------------------------------------------------------------------------------
 		this.physics.gotoProcess (
@@ -220,7 +216,9 @@ export class Tank extends PlayfieldGameObject {
 
 							if (self.m_keysPressed.has (Tank.TURN_LEFT_KEY)) {
 								self.angle -= 2.0;
-							} else if (self.m_keysPressed.has (Tank.TURN_RIGHT_KEY)) {
+							}
+							
+							if (self.m_keysPressed.has (Tank.TURN_RIGHT_KEY)) {
 								self.angle += 2.0;
 							}
 
@@ -266,8 +264,8 @@ export class Tank extends PlayfieldGameObject {
 				self.m_firing = true;
 
 				for (i = 0; i < self.m_bullets; i++) {
-					var __shot:Shot = self.m_playfield.addGameObjectAsDetachedChild (Shot, 0, 0.0, false) as Shot;
-					__shot.afterSetup ([self.m_playfield, self.angle, 14.0, self.m_damage]);
+					var __shot:Shot = self.m_playfieldGridView.addGameObjectAsDetachedChild (Shot, 0, 0.0, false) as Shot;
+					__shot.afterSetup ([self.m_playfieldGridView, self.angle, 14.0, self.m_damage]);
 
 					__shot.x = self.x;
 					__shot.y = self.y;

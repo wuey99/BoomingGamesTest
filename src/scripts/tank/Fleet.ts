@@ -18,18 +18,17 @@ import { G } from '../../engine/app/G';
 import { XProcess } from '../../engine/process/XProcess';
 
 import { Tank } from './Tank';
-import { TestGame } from '../test/TestGame';
-import { PlayfieldObject } from '../common/PlayfieldObject';
+import { PlayfieldGameObject } from '../playfield/PlayfieldGameObject';
 
 //------------------------------------------------------------------------------------------
-export class Fleet extends PlayfieldObject {
+export class Fleet extends PlayfieldGameObject {
 	public m_sprite:PIXI.AnimatedSprite;
 
     public script:XProcess;
 
     public m_tanks:Map<number, Tank>;
 
-    public m_currentTank:number;
+    public m_currentTankID:number;
 
     public m_keyDownHandler:any;
     public m_keyUpHandler:any;
@@ -171,7 +170,7 @@ export class Fleet extends PlayfieldObject {
 
         for (__tankID of this.m_tanks.keys ()) {
             __tank = this.m_tanks.get (__tankID);
-            __tank.setFocus (this.m_currentTank == __tankID);
+            __tank.setFocus (this.m_currentTankID == __tankID);
         }
     }
 
@@ -179,7 +178,7 @@ export class Fleet extends PlayfieldObject {
 	public Loop_Script ():void {
 		var self:Fleet = this;
         
-        self.m_currentTank = Tank.GREEN;
+        self.m_currentTankID = Tank.GREEN;
 
         this.updateActiveFocus ();
 
@@ -198,7 +197,7 @@ export class Fleet extends PlayfieldObject {
                             if (self.m_keysClicked.has (Fleet.CHANGE_TANKS_KEY)) {
                                 self.m_keysClicked.delete (Fleet.CHANGE_TANKS_KEY);
 
-                                self.m_currentTank = (self.m_currentTank + 1) % 3;
+                                self.m_currentTankID = (self.m_currentTankID + 1) % 3;
 
                                 self.updateActiveFocus ();
                             }

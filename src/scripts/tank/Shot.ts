@@ -16,10 +16,11 @@ import { XGameObject} from '../../engine/gameobject/XGameObject';
 import { XGameObjectCX} from '../../engine/gameobject/XGameObjectCX';
 import { G } from '../../engine/app/G';
 import { XProcess } from '../../engine/process/XProcess';
-import { PlayfieldObject } from '../common/PlayfieldObject';
+
+import { PlayfieldGameObject } from '../playfield/PlayfieldGameObject';
 
 //------------------------------------------------------------------------------------------
-export class Shot extends PlayfieldObject {
+export class Shot extends PlayfieldGameObject {
 	public m_sprite:PIXI.AnimatedSprite;
 
     public script:XProcess;

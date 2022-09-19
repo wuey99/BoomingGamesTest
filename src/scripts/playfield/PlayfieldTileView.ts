@@ -17,11 +17,11 @@ import { XGameObjectCX} from '../../engine/gameobject/XGameObjectCX';
 import { G } from '../../engine/app/G';
 import { XProcess } from '../../engine/process/XProcess';
 
-import { TestGame } from '../test/TestGame';
+import { PlayfieldGameObject } from './PlayfieldGameObject';
+import { PlayfieldGridModel } from './PlayfieldGridModel';
 
 //------------------------------------------------------------------------------------------
-export class PlayfieldObject extends XGameObject {
-    public m_playfield:TestGame;
+export class PlayfieldTileView extends XGameObject {
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -38,8 +38,6 @@ export class PlayfieldObject extends XGameObject {
 //------------------------------------------------------------------------------------------
 	public afterSetup (__params:Array<any> = null):XGameObject {
         super.afterSetup (__params);
-
-        this.m_playfield = __params[this.m_paramIndex++];
 
 		return this;
 	}

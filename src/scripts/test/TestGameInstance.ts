@@ -17,7 +17,6 @@ import { XSoundManager } from '../../engine//sound/XSoundManager';
 import { XSoundSubManager } from '../../engine//sound/XSoundSubManager';
 import { XGameInstance } from '../../engine/state/XGameInstance';
 import { XBulletCollisionList } from '../../engine/bullet/XBulletCollisionList';
-import { OctopusBugX } from './OctopusBugX';
 
 //------------------------------------------------------------------------------------------
 export class TestGameInstance extends XGameInstance {

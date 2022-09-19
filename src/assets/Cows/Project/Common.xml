@@ -89,13 +89,13 @@
       <folder name="startup"/>
       <folder name="Booming">
         <folder name="Blocks">
-          <resource name="@Block_Hay" type=".pmp" embed="false" path="Common" src="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" dst="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" pmp_width="1024" originX="494" originY="494" width="35" totalWidth="35" height="35" regX="0" regY="0"/>
+          <resource name="@Block_Hay" type=".pmp" embed="false" path="Common" src="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" dst="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.pmp" pmp_width="1024" originX="494" originY="494" width="35" totalWidth="70" height="35" regX="0" regY="0"/>
           <resource name="png_Block_Hay" type=".png" embed="false" path="Common" src="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.png" dst="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.png"/>
           <resource name="$Block_Hay" type=".json" embed="false" path="Common" src="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.json" dst="B239C3A6-A56C-584B-16FA-E3B3634DB48B-Block_Hay.json"/>
           <resource name="Block_Hay" type=".fla" embed="false" path="Common" src="67F177E3-F056-41C8-5F44-012E51EF78BE-Block_Hay.fla" dst="67F177E3-F056-41C8-5F44-012E51EF78BE-Block_Hay.swf">
             <classX name="Block_Hay" regX="0" regY="0" width="32" height="32"/>
           </resource>
-          <resource name="@Block_Wall" type=".pmp" embed="false" path="Common" src="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" dst="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" pmp_width="1024" originX="494" originY="494" width="35" totalWidth="35" height="35" regX="0" regY="0"/>
+          <resource name="@Block_Wall" type=".pmp" embed="false" path="Common" src="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" dst="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.pmp" pmp_width="1024" originX="494" originY="494" width="35" totalWidth="70" height="35" regX="0" regY="0"/>
           <resource name="png_Block_Wall" type=".png" embed="false" path="Common" src="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.png" dst="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.png"/>
           <resource name="$Block_Wall" type=".json" embed="false" path="Common" src="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.json" dst="4FD54215-2221-0DDE-83E9-54E879CCF38C-Block_Wall.json"/>
           <resource name="Block_Wall" type=".fla" embed="false" path="Common" src="6580AE31-4957-21BC-E6CE-5FF8EB707401-Block_Wall.fla" dst="6580AE31-4957-21BC-E6CE-5FF8EB707401-Block_Wall.swf">

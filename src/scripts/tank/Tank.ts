@@ -17,11 +17,11 @@ import { XGameObjectCX} from '../../engine/gameobject/XGameObjectCX';
 import { G } from '../../engine/app/G';
 import { XProcess } from '../../engine/process/XProcess';
 
-import { PlayfieldObject } from '../common/PlayfieldObject';
+import { PlayfieldGameObject } from '../playfield/PlayfieldGameObject';
 import { Shot } from './Shot';
 
 //------------------------------------------------------------------------------------------
-export class Tank extends PlayfieldObject {
+export class Tank extends PlayfieldGameObject {
 	public m_sprite:PIXI.AnimatedSprite;
 
     public script:XProcess;
@@ -41,13 +41,15 @@ export class Tank extends PlayfieldObject {
 	public static BLUE:number = 1;
 	public static RED:number = 2;
 
-	public m_color:number;
+	public m_tankID:number;
 	public m_bullets:number;
 	public m_damage:number;
 
 	public m_speed:number;
 
 	public m_hasFocus:boolean;
+
+	public m_firing:boolean;
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -65,7 +67,7 @@ export class Tank extends PlayfieldObject {
 	public afterSetup (__params:Array<any> = null):XGameObject {
         super.afterSetup (__params);
 
-		this.m_color = __params[this.m_paramIndex++];
+		this.m_tankID = __params[this.m_paramIndex++];
 		this.m_bullets = __params[this.m_paramIndex++];
 		this.m_damage = __params[this.m_paramIndex++];
 
@@ -78,6 +80,7 @@ export class Tank extends PlayfieldObject {
 
 		this.m_hasFocus = false;
 		this.m_speed = 1.0;
+		this.m_firing = false;
 
 		this.Physics_Script ();
         this.Loop_Script ();
@@ -155,7 +158,17 @@ export class Tank extends PlayfieldObject {
         this.m_sprite = this.createAnimatedSpriteX ("Tanks");
         this.addSortableChild0 (this.m_sprite, this.getLayer (), this.getDepth (), false);
 
-		this.m_sprite.gotoAndStop (this.m_color);
+		switch (this.m_tankID) {
+			case Tank.GREEN:
+				this.m_sprite.gotoAndStop (0);
+				break;
+			case Tank.BLUE:
+				this.m_sprite.gotoAndStop (1);
+				break;
+			case Tank.RED:
+				this.m_sprite.gotoAndStop (2);
+				break;
+		}
 
 		this.show ();
 	}
@@ -220,7 +233,9 @@ export class Tank extends PlayfieldObject {
 							if (self.m_keysClicked.has (Tank.ACTION_KEY)) {
 								self.m_keysClicked.delete (Tank.ACTION_KEY);
 
-								self.fireShots ();
+								if (!self.m_firing) {
+									self.fireShots ();
+								}
 							}
 						}
 					}
@@ -248,6 +263,8 @@ export class Tank extends PlayfieldObject {
 			function * () {
 				var i:number;
 
+				self.m_firing = true;
+
 				for (i = 0; i < self.m_bullets; i++) {
 					var __shot:Shot = self.m_playfield.addGameObjectAsDetachedChild (Shot, 0, 0.0, false) as Shot;
 					__shot.afterSetup ([self.m_playfield, self.angle, 14.0, self.m_damage]);
@@ -257,6 +274,8 @@ export class Tank extends PlayfieldObject {
 
 					yield [XProcess.WAIT1000, 0.125 * 1000];
 				}
+
+				self.m_firing = false;
 			}
 		);	
 	}

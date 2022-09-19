@@ -17,34 +17,28 @@ import { XGameObjectCX} from '../../engine/gameobject/XGameObjectCX';
 import { G } from '../../engine/app/G';
 import { XProcess } from '../../engine/process/XProcess';
 
+import { Tank } from './Tank';
+import { TestGame } from '../test/TestGame';
+
 //------------------------------------------------------------------------------------------
-export class Tank extends XGameObject {
+export class Fleet extends XGameObject {
 	public m_sprite:PIXI.AnimatedSprite;
 
+    public m_playfield:TestGame;
+
     public script:XProcess;
-	public physics:XProcess;
+
+    public m_tanks:Map<number, Tank>;
+
+    public m_currentTank:number;
 
     public m_keyDownHandler:any;
     public m_keyUpHandler:any;
 	public m_keysPressed:Map<string, number>;
 	public m_keysClicked:Map<string, number>;
 
-	public static TURN_LEFT_KEY:string = "ArrowLeft";
-	public static TURN_RIGHT_KEY:string = "ArrowRight";
-	public static FORWARD_KEY:string = "ArrowUp"
-	public static ACTION_KEY:string = "Space";
+	public static CHANGE_TANKS_KEY:string = "KeyT";
 
-	public static GREEN:number = 0;
-	public static BLUE:number = 1;
-	public static RED:number = 2;
-
-	public m_color:number;
-	public m_bullets:number;
-	public m_damage:number;
-
-	public m_speed:number;
-
-	public m_hasFocus:boolean;
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -62,21 +56,14 @@ export class Tank extends XGameObject {
 	public afterSetup (__params:Array<any> = null):XGameObject {
         super.afterSetup (__params);
 
-		this.m_color = __params[this.m_paramIndex++];
-		this.m_bullets = __params[this.m_paramIndex++];
-		this.m_damage = __params[this.m_paramIndex++];
+        this.m_playfield = __params[this.m_paramIndex++];
 
 		this.setCX (-16, +16, -16, +16);
 
-		this.createSprites ();
+        this.createObjects ();
 
 		this.script = this.addEmptyProcess ();
-		this.physics = this.addEmptyProcess ();
 
-		this.m_hasFocus = false;
-		this.m_speed = 1.0;
-
-		this.Physics_Script ();
         this.Loop_Script ();
 
 		this.m_keysPressed = new Map<string, number> ();
@@ -103,17 +90,10 @@ export class Tank extends XGameObject {
 	}
 
 //------------------------------------------------------------------------------------------
-	public setFocus (__focus:boolean):void {
-		this.m_hasFocus = __focus;
-	}
-
-//------------------------------------------------------------------------------------------
 	public keyDownHandler (key:KeyboardEvent):void {
 		console.log (": keyDown: ", key.code);
 
-		if (this.m_hasFocus) {
-			this.setKeyPressed (key.code);
-		}
+		this.setKeyPressed (key.code);
 	}
 
 //------------------------------------------------------------------------------------------
@@ -129,9 +109,7 @@ export class Tank extends XGameObject {
 			this.m_keysClicked.set (__key, 0);
 		}
 
-		if (this.m_hasFocus) {
-			this.m_keysPressed.set (__key, 0);	
-		}
+		this.m_keysPressed.set (__key, 0);	
 	}
 
 //------------------------------------------------------------------------------------------
@@ -143,52 +121,71 @@ export class Tank extends XGameObject {
 		}
 	}
 
-	//------------------------------------------------------------------------------------------
-	public handleCX ():void {
-	}
+//------------------------------------------------------------------------------------------
+    public createObjects ():void {
+        this.m_tanks = new Map<number, Tank> ();
+
+		var __tank:Tank;
+        
+        var __x:number = 512;
+        var __y:number = 512;
+
+        //------------------------------------------------------------------------------------------
+        // green tank
+        //------------------------------------------------------------------------------------------
+        __tank = this.m_playfield.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
+		__tank.afterSetup ([Tank.GREEN, 1, 25]);
+
+		__tank.x = __x;
+		__tank.y = __y;
+
+        this.m_tanks.set (Tank.GREEN, __tank);
+
+        __x += 256;
+
+        //------------------------------------------------------------------------------------------
+        // blue tank
+        //------------------------------------------------------------------------------------------
+        __tank = this.m_playfield.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
+		__tank.afterSetup ([Tank.BLUE, 3, 20]);
+
+		__tank.x = __x;
+		__tank.y = __y;
+
+        this.m_tanks.set (Tank.BLUE,__tank);
+
+        __x += 256;
+
+        //------------------------------------------------------------------------------------------
+        // red tank
+        //------------------------------------------------------------------------------------------
+        __tank = this.m_playfield.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
+		__tank.afterSetup ([Tank.RED, 2, 10]);
+
+		__tank.x = __x;
+		__tank.y = __y;
+
+        this.m_tanks.set (Tank.RED, __tank);
+    }
 
 	//------------------------------------------------------------------------------------------
-	public createSprites ():void {
-        this.m_sprite = this.createAnimatedSpriteX ("Tanks");
-        this.addSortableChild0 (this.m_sprite, this.getLayer (), this.getDepth (), false);
+    public updateActiveFocus ():void {
+        var __tank:Tank;
+        var __tankID:number;
 
-		this.m_sprite.gotoAndStop (this.m_color);
-
-		this.show ();
-	}
-
-	//------------------------------------------------------------------------------------------
-	public Physics_Script ():void {
-		var self:any = this;
-
-		//------------------------------------------------------------------------------------------
-		this.physics.gotoProcess (
-			function * () {	
-				while (true) {
-					yield [XProcess.WAIT, 0x0100];
-
-					self.updatePhysics ();
-				}
-
-			//------------------------------------------------------------------------------------------			
-			}
-		);	
-	}
-
-	//------------------------------------------------------------------------------------------
-	public updatePhysics () {
-		var __radians:number = ((this.angle - 90.0) % 360) * Math.PI / 180;
-
-		var __dx:number = Math.cos (__radians) * this.m_speed;
-		var __dy:number = Math.sin (__radians) * this.m_speed;
-
-		this.x += __dx;
-		this.y += __dy;
-	}
+        for (__tankID of this.m_tanks.keys ()) {
+            __tank = this.m_tanks.get (__tankID);
+            __tank.setFocus (this.m_currentTank == __tankID);
+        }
+    }
 
 	//------------------------------------------------------------------------------------------
 	public Loop_Script ():void {
-		var self:any = this;
+		var self:Fleet = this;
+        
+        self.m_currentTank = Tank.GREEN;
+
+        this.updateActiveFocus ();
 
 		//------------------------------------------------------------------------------------------
 		this.script.gotoProcess (
@@ -202,17 +199,13 @@ export class Tank extends XGameObject {
 						while (true) {
 							yield [XProcess.WAIT, 0x0100];
 
-							if (self.m_keysPressed.has (Tank.TURN_LEFT_KEY)) {
-								self.angle -= 2.0;
-							} else if (self.m_keysPressed.has (Tank.TURN_RIGHT_KEY)) {
-								self.angle += 2.0;
-							}
+                            if (self.m_keysClicked.has (Fleet.CHANGE_TANKS_KEY)) {
+                                self.m_keysClicked.delete (Fleet.CHANGE_TANKS_KEY);
 
-							if (self.m_keysPressed.has (Tank.FORWARD_KEY)) {
-								self.m_speed = Math.min (8.0, self.m_speed + 0.10);
-							} else {
-								self.m_speed = Math.max (0.0, self.m_speed - 0.20);
-							}
+                                self.m_currentTank = (self.m_currentTank + 1) % 3;
+
+                                self.updateActiveFocus ();
+                            }
 						}
 					}
 				);	

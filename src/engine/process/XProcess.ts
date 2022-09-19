@@ -82,7 +82,11 @@ export class XProcess {
 
 	//------------------------------------------------------------------------------------------
 	public kill ():void {
-        this.m_generator.return ();
+		try {
+	        this.m_generator.return ();
+		} catch (e) {
+			console.log (": XProcess: kill: ", e);
+		}
 
 		this.removeAllProcesses ();
 			

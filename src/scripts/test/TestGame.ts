@@ -13,13 +13,10 @@ import { XTaskManager} from '../../engine/task/XTaskManager';
 import { XTaskSubManager} from '../../engine/task/XTaskSubManager';
 import { XWorld} from '../../engine/sprite/XWorld';
 import { XGameObject} from '../../engine/gameobject/XGameObject';
-import { XState } from '../../engine/state/XState';
-import { OctopusBug } from './OctopusBug';
-import { OctopusBugX } from './OctopusBugX';
+import { XState } from '../../engine/state/XState';``
 import { GUID } from '../../engine/utils/GUID';
-import { FlockLeader } from './FlockLeader';
 import { XSimpleXMLNode } from '../../engine/xml/XSimpleXMLNode';
-import { Tank } from '../tank/Tank';
+import { Fleet } from '../tank/Fleet';
 
 //------------------------------------------------------------------------------------------
 export class TestGame extends XState {
@@ -40,16 +37,10 @@ export class TestGame extends XState {
 	public afterSetup (__params:Array<any> = null):XGameObject {
         super.afterSetup (__params);
 
-		/*
-		var __leader:FlockLeader = world.addGameObject (FlockLeader, 0, 0.0, false) as FlockLeader;
-		__leader.afterSetup ([]);
-		*/
+		this.world.replaceLayer (0, new XSpriteLayer0 ());
 
-		var __tank:Tank = this.addGameObjectAsChild (Tank, 0, 0.0, false) as Tank;
-		__tank.afterSetup ([]);
-
-		__tank.x = 512;
-		__tank.y = 512;
+		var __fleet:Fleet = this.addGameObjectAsDetachedChild (Fleet, 0, 0.0, false) as Fleet;
+		__fleet.afterSetup ([this]);
 
 		return this;
 	}

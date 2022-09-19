@@ -109,6 +109,20 @@
           <resource name="Tanks" type=".fla" embed="false" path="Common" src="C0438CA1-FC2F-65E2-17F2-0C5C12787147-Tanks.fla" dst="C0438CA1-FC2F-65E2-17F2-0C5C12787147-Tanks.swf">
             <classX name="Tanks" regX="0" regY="0" width="32" height="32"/>
           </resource>
+          <resource name="@Shot" type=".pmp" embed="false" path="Common" src="012CFE37-4DE4-1202-4E62-B49388A43C5B-Shot.pmp" dst="012CFE37-4DE4-1202-4E62-B49388A43C5B-Shot.pmp" pmp_width="1024" originX="494" originY="494" width="35" totalWidth="35" height="35" regX="-18" regY="-32"/>
+          <resource name="png_Shot" type=".png" embed="false" path="Common" src="012CFE37-4DE4-1202-4E62-B49388A43C5B-Shot.png" dst="012CFE37-4DE4-1202-4E62-B49388A43C5B-Shot.png"/>
+          <resource name="$Shot" type=".json" embed="false" path="Common" src="012CFE37-4DE4-1202-4E62-B49388A43C5B-Shot.json" dst="012CFE37-4DE4-1202-4E62-B49388A43C5B-Shot.json"/>
+          <resource name="Shot" type=".fla" embed="false" path="Common" src="271F9EDC-C5D8-8FA1-8413-59F0A2F1DBAE-Shot.fla" dst="271F9EDC-C5D8-8FA1-8413-59F0A2F1DBAE-Shot.swf">
+            <classX name="Shot" regX="0" regY="0" width="32" height="32"/>
+          </resource>
+        </folder>
+        <folder name="Misc">
+          <resource name="@Arrow" type=".pmp" embed="false" path="Common" src="817F8B6F-E8D8-02EB-5ADC-32B7A330E70C-Arrow.pmp" dst="817F8B6F-E8D8-02EB-5ADC-32B7A330E70C-Arrow.pmp" pmp_width="1024" originX="494" originY="494" width="35" totalWidth="35" height="35" regX="-12" regY="-24"/>
+          <resource name="png_Arrow" type=".png" embed="false" path="Common" src="817F8B6F-E8D8-02EB-5ADC-32B7A330E70C-Arrow.png" dst="817F8B6F-E8D8-02EB-5ADC-32B7A330E70C-Arrow.png"/>
+          <resource name="$Arrow" type=".json" embed="false" path="Common" src="817F8B6F-E8D8-02EB-5ADC-32B7A330E70C-Arrow.json" dst="817F8B6F-E8D8-02EB-5ADC-32B7A330E70C-Arrow.json"/>
+          <resource name="Arrow" type=".fla" embed="false" path="Common" src="525A0E0C-DCF0-1C5D-6A50-D1848C0AAA34-Arrow.fla" dst="525A0E0C-DCF0-1C5D-6A50-D1848C0AAA34-Arrow.swf">
+            <classX name="Arrow" regX="0" regY="0" width="32" height="32"/>
+          </resource>
         </folder>
       </folder>
     </folder>

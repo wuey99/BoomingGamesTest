@@ -50,6 +50,7 @@ export class Tank extends PlayfieldGameObject {
 	public m_hasFocus:boolean;
 
 	public m_firing:boolean;
+	public m_idle:number;
 
 	public m_CX_Collide_Flag:number;
 	
@@ -90,6 +91,7 @@ export class Tank extends PlayfieldGameObject {
 		this.m_hasFocus = false;
 		this.m_speed = 1.0;
 		this.m_firing = false;
+		this.m_idle = 0;
 
 		this.Physics_Script ();
         this.Loop_Script ();
@@ -120,6 +122,10 @@ export class Tank extends PlayfieldGameObject {
 //------------------------------------------------------------------------------------------
 	public setFocus (__focus:boolean):void {
 		this.m_hasFocus = __focus;
+
+		if (!__focus) {
+			this.m_idle = 90;
+		}
 	}
 
 //------------------------------------------------------------------------------------------
@@ -367,6 +373,11 @@ export class Tank extends PlayfieldGameObject {
 	}
 
 	//------------------------------------------------------------------------------------------
+	public isIdle ():boolean {
+		return this.m_idle > 90;
+	}
+
+	//------------------------------------------------------------------------------------------
 	public Loop_Script ():void {
 		var self:Tank = this;
 
@@ -382,22 +393,32 @@ export class Tank extends PlayfieldGameObject {
 						while (true) {
 							yield [XProcess.WAIT, 0x0100];
 
+							self.m_idle++;
+
 							if (self.m_keysPressed.has (Tank.TURN_LEFT_KEY)) {
 								self.angle -= 2.0;
+								
+								self.m_idle = 0;
 							}
 							
 							if (self.m_keysPressed.has (Tank.TURN_RIGHT_KEY)) {
 								self.angle += 2.0;
+
+								self.m_idle = 0;
 							}
 
 							if (self.m_keysPressed.has (Tank.FORWARD_KEY)) {
 								self.m_speed = Math.min (8.0, self.m_speed + 0.10);
+
+								self.m_idle = 0;
 							} else {
 								self.m_speed = Math.max (0.0, self.m_speed - 0.20);
 							}
 
 							if (self.m_keysClicked.has (Tank.ACTION_KEY)) {
 								self.m_keysClicked.delete (Tank.ACTION_KEY);
+
+								self.m_idle = 0;
 
 								if (!self.m_firing) {
 									self.fireShots ();

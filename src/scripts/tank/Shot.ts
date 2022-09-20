@@ -134,8 +134,6 @@ export class Shot extends PlayfieldGameObject {
         col = Math.floor (__x / __tileWidth);
         row = Math.floor (__y / __tileHeight);
 
-        console.log (": checkCollision: ", __x, __y, col, row);
-
         var __tileModel:PlayfieldTileModel = this.getModel ().getTile (col, row);
 
         if (__tileModel != null) {

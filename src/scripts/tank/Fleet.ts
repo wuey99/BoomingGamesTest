@@ -21,6 +21,7 @@ import { Tank } from './Tank';
 import { PlayfieldGameObject } from '../playfield/PlayfieldGameObject';
 import { PlayfieldGridModel } from '../playfield/PlayfieldGridModel';
 import { TestGame } from '../test/TestGame';
+import { Cursor } from './Cursor';
 
 //------------------------------------------------------------------------------------------
 export class Fleet extends PlayfieldGameObject {
@@ -31,6 +32,8 @@ export class Fleet extends PlayfieldGameObject {
     public m_tanks:Map<number, Tank>;
 
     public m_currentTankID:number;
+
+    public m_cursor:Cursor;
 
     public m_keyDownHandler:any;
     public m_keyUpHandler:any;
@@ -69,9 +72,15 @@ export class Fleet extends PlayfieldGameObject {
 		document.addEventListener ('keydown', this.m_keyDownHandler = this.keyDownHandler.bind (this));
 		document.addEventListener ('keyup', this.m_keyUpHandler = this.keyUpHandler.bind (this));
 
+        var self:Fleet = this;
+
 		this.addProcess (
 			function * () {
-				
+                while (true) {
+    				yield [XProcess.WAIT, 0x0100];
+
+                    self.updateCursor ();
+                }
 			}
 		);
 
@@ -121,6 +130,9 @@ export class Fleet extends PlayfieldGameObject {
         this.createTank (Tank.GREEN, [this.m_playfieldGridView, Tank.GREEN, 1, 25]);
         this.createTank (Tank.BLUE, [this.m_playfieldGridView, Tank.BLUE, 3, 20]);
         this.createTank (Tank.RED, [this.m_playfieldGridView, Tank.RED, 2, 10]);
+
+        this.m_cursor = this.m_playfieldGridView.addGameObjectAsDetachedChild (Cursor, 0, 0.0, false) as Cursor;
+		this.m_cursor.afterSetup ([]);
     }
 
     //------------------------------------------------------------------------------------------
@@ -162,6 +174,26 @@ export class Fleet extends PlayfieldGameObject {
         }
     }
 
+	//------------------------------------------------------------------------------------------
+    public updateCursor ():void {
+        var __tank:Tank;
+        var __tankID:number;
+
+        for (__tankID of this.m_tanks.keys ()) {
+            __tank = this.m_tanks.get (__tankID);
+        
+            if (this.m_currentTankID == __tankID) {
+                this.m_cursor.x = __tank.x;
+                this.m_cursor.y = __tank.y;
+
+                if (!__tank.isIdle ()) {
+                    this.m_cursor.visible = false;
+                } else {
+                    this.m_cursor.visible = true;
+                }
+            }
+        }
+    }
 	//------------------------------------------------------------------------------------------
 	public Loop_Script ():void {
 		var self:Fleet = this;

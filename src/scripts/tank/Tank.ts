@@ -51,6 +51,15 @@ export class Tank extends PlayfieldGameObject {
 
 	public m_firing:boolean;
 
+	public m_CX_Collide_Flag:number;
+	
+	public static CX_COLLIDE_LF:number = 0x0001;
+	public static CX_COLLIDE_RT:number = 0x0002;
+	public static CX_COLLIDE_HORZ:number = 0x0001 | 0x0002; 
+	public static CX_COLLIDE_UP:number = 0x0004;
+	public static CX_COLLIDE_DN:number = 0x0008;
+	public static CX_COLLIDE_VERT:number = 0x0004 | 0x0008;
+
 //------------------------------------------------------------------------------------------	
 	constructor () {
 		super ();
@@ -194,8 +203,167 @@ export class Tank extends PlayfieldGameObject {
 		var __dx:number = Math.cos (__radians) * this.m_speed;
 		var __dy:number = Math.sin (__radians) * this.m_speed;
 
-		this.x += __dx;
-		this.y += __dy;
+		this.m_CX_Collide_Flag = 0;
+
+		if (__dx < 0) {
+			this.x += __dx;
+
+			this.Ck_Collide_LF ();
+		} else {
+			this.x += __dx;
+
+			this.Ck_Collide_RT ();
+		}
+
+		if (__dy < 0) {
+			this.y += __dy;
+
+			this.Ck_Collide_UP ();
+		} else {
+			this.y += __dy;
+
+			this.Ck_Collide_DN ();
+		}
+	}
+
+	//------------------------------------------------------------------------------------------
+	public Ck_Collide_LF ():boolean {
+        var x1:number, y1:number, x2:number, y2:number;
+        var i:number, __x:number, __y:number;
+        var collided:boolean;
+		var col:number, row:number;
+		var __tileWidth = this.getModel ().getTileWidth ();
+		var __tileHeight = this.getModel ().getTileHeight ();
+
+        x1 = Math.floor (this.x + this.m_cx.left);
+        x2 = Math.floor (this.x + this.m_cx.right);
+        y1 = Math.floor (this.y + this.m_cx.top);
+        y2 = Math.floor (this.y + this.m_cx.bottom);
+
+		x1 = Math.floor (x1 / __tileWidth) * __tileWidth;
+		col = Math.floor (x1 / __tileWidth);
+		__y = Math.floor (y1 / __tileHeight) * __tileHeight;
+
+		while (__y <= Math.floor (y2 / __tileHeight) * __tileHeight) {
+			row = Math.floor (__y / __tileHeight);
+
+			if (this.getModel ().getTile (col, row) != null) {
+				this.m_CX_Collide_Flag |= XGameObjectCX.CX_COLLIDE_LF;
+                    
+				this.x = (x1 + __tileWidth - this.m_cx.left);
+				
+				return true;
+			}
+
+			__y += __tileHeight;
+		}
+
+		return false;
+	}
+
+	//------------------------------------------------------------------------------------------
+	public Ck_Collide_RT ():boolean {
+        var x1:number, y1:number, x2:number, y2:number;
+        var i:number, __x:number, __y:number;
+        var collided:boolean;
+		var col:number, row:number;
+		var __tileWidth = this.getModel ().getTileWidth ();
+		var __tileHeight = this.getModel ().getTileHeight ();
+
+        x1 = Math.floor (this.x + this.m_cx.left);
+        x2 = Math.floor (this.x + this.m_cx.right);
+        y1 = Math.floor (this.y + this.m_cx.top);
+        y2 = Math.floor (this.y + this.m_cx.bottom);
+
+		x2 = Math.floor (x2 / __tileWidth) * __tileWidth;
+		col = Math.floor (x2 / __tileWidth);
+		__y = Math.floor (y1 / __tileHeight) * __tileHeight;
+
+		while (__y <= Math.floor (y2 / __tileHeight) * __tileHeight) {
+			row = Math.floor (__y / __tileHeight);
+
+			if (this.getModel ().getTile (col, row) != null) {
+				this.m_CX_Collide_Flag |= XGameObjectCX.CX_COLLIDE_RT;
+                    
+				this.x = (x2 - (this.m_cx.right) - 1);
+				
+				return true;
+			}
+
+			__y += __tileHeight;
+		}
+
+		return false;
+	}
+
+	//------------------------------------------------------------------------------------------
+	public Ck_Collide_UP ():boolean {
+        var x1:number, y1:number, x2:number, y2:number;
+        var i:number, __x:number, __y:number;
+        var collided:boolean;
+		var col:number, row:number;
+		var __tileWidth = this.getModel ().getTileWidth ();
+		var __tileHeight = this.getModel ().getTileHeight ();
+
+        x1 = Math.floor (this.x + this.m_cx.left);
+        x2 = Math.floor (this.x + this.m_cx.right);
+        y1 = Math.floor (this.y + this.m_cx.top);
+        y2 = Math.floor (this.y + this.m_cx.bottom);
+
+		y1 = Math.floor (y1 / __tileHeight) * __tileHeight;
+		row = Math.floor (y1 / __tileHeight);
+		__x = Math.floor (x1 / __tileWidth) * __tileWidth;
+
+		while (__x <= Math.floor (x2 / __tileWidth) * __tileWidth) {
+			col = Math.floor (__x / __tileWidth);
+
+			if (this.getModel ().getTile (col, row) != null) {
+				this.m_CX_Collide_Flag |= Tank.CX_COLLIDE_UP;
+                    
+				this.y = (y1 + __tileHeight - this.m_cx.top);
+				
+				return true;
+			}
+
+			__x += __tileWidth;
+		}
+
+		return false;
+	}
+
+	//------------------------------------------------------------------------------------------
+	public Ck_Collide_DN ():boolean {
+        var x1:number, y1:number, x2:number, y2:number;
+        var i:number, __x:number, __y:number;
+        var collided:boolean;
+		var col:number, row:number;
+		var __tileWidth = this.getModel ().getTileWidth ();
+		var __tileHeight = this.getModel ().getTileHeight ();
+
+        x1 = Math.floor (this.x + this.m_cx.left);
+        x2 = Math.floor (this.x + this.m_cx.right);
+        y1 = Math.floor (this.y + this.m_cx.top);
+        y2 = Math.floor (this.y + this.m_cx.bottom);
+
+		y2 = Math.floor (y2 / __tileHeight) * __tileHeight;
+		row = Math.floor (y2 / __tileHeight);
+		__x = Math.floor (x1 / __tileWidth) * __tileWidth;
+
+		while (__x <= Math.floor (x2 / __tileWidth) * __tileWidth) {
+			col = Math.floor (__x / __tileWidth);
+
+			if (this.getModel ().getTile (col, row) != null) {
+				this.m_CX_Collide_Flag |= Tank.CX_COLLIDE_DN;
+                    
+				this.y = (y2 - (this.m_cx.bottom) - 1);
+				
+				return true;
+			}
+
+			__x += __tileWidth;
+		}
+
+		return false;
 	}
 
 	//------------------------------------------------------------------------------------------

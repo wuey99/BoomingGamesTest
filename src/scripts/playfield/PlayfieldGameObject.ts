@@ -18,10 +18,12 @@ import { G } from '../../engine/app/G';
 import { XProcess } from '../../engine/process/XProcess';
 
 import { PlayfieldGridView } from '../playfield/PlayfieldGridView';
+import { PlayfieldGridModel } from '../playfield/PlayfieldGridModel';
 
 //------------------------------------------------------------------------------------------
 export class PlayfieldGameObject extends XGameObject {
     public m_playfieldGridView:PlayfieldGridView;
+	public m_model:PlayfieldGridModel;
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -40,6 +42,8 @@ export class PlayfieldGameObject extends XGameObject {
         super.afterSetup (__params);
 
         this.m_playfieldGridView = __params[this.m_paramIndex++];
+		console.log (": playfieldGridView: ", this.m_playfieldGridView);
+		this.m_model = this.m_playfieldGridView.getModel ();
 
 		return this;
 	}
@@ -47,6 +51,11 @@ export class PlayfieldGameObject extends XGameObject {
 //------------------------------------------------------------------------------------------
 	public cleanup ():void {
 		super.cleanup ();
+	}
+
+//------------------------------------------------------------------------------------------
+	public getModel ():PlayfieldGridModel {
+		return this.m_model;
 	}
 
 //------------------------------------------------------------------------------------------

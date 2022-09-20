@@ -77,7 +77,7 @@ export class PlayfieldGridView extends XGameObject {
             var __playfieldTile:PlayfieldTileView = this.addGameObjectAsDetachedChild (
                 __classMap.view, 0, 0.0, false
             ) as PlayfieldTileView;
-            __playfieldTile.afterSetup ([]);
+            __playfieldTile.afterSetup ([this]);
 
             __playfieldTile.x = __model.col * __model.tileWidth;
             __playfieldTile.y = __model.row * __model.tileHeight;

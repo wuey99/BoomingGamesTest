@@ -117,7 +117,7 @@ export class TestGame extends XState {
 		var __col:number, __row:number;
 
 		//------------------------------------------------------------------------------------------
-		// create left/right wall boundary
+		// create left / right wall boundary
 		//------------------------------------------------------------------------------------------
 		for (__row = 1; __row < TestGame.GRID_ROWS - 1; __row++) {
 			__playfieldGridModel.setTileFromType (0, __row, TestGame.BLOCK_WALL);
@@ -125,7 +125,7 @@ export class TestGame extends XState {
 		}
 
 		//------------------------------------------------------------------------------------------
-		// create tio/bottom wall boundary
+		// create top / bottom wall boundary
 		//------------------------------------------------------------------------------------------
 		for (__col = 0; __col < TestGame.GRID_COLS; __col++) {
 			__playfieldGridModel.setTileFromType (__col, 0, TestGame.BLOCK_WALL);

@@ -141,8 +141,8 @@ export class Fleet extends PlayfieldGameObject {
             __row = Math.floor (Math.random () * TestGame.GRID_ROWS);
 
             if (__model.getTile (__col, __row) == null) {
-                __tank.x = __col * __model.getTileWidth () + __model.getTileWidth () - 16;
-                __tank.y = __row * __model.getTileHeight () + __model.getTileHeight () - 16;
+                __tank.x = __col * __model.getTileWidth () + __model.getTileWidth () / 2;
+                __tank.y = __row * __model.getTileHeight () + __model.getTileHeight () / 2;
 
                 __success = true;
             }

@@ -19,4 +19,9 @@ export class PlayfieldBlockHayModel extends PlayfieldTileModel {
     public isSolid ():boolean {
         return true;
     }
+
+    //------------------------------------------------------------------------------------------
+    public isDestructable ():boolean {
+        return true;
+    }
 }

@@ -80,4 +80,9 @@ export class PlayfieldTileModel {
     public isSolid ():boolean {
         return true;
     }
+
+    //------------------------------------------------------------------------------------------
+    public isDestructable ():boolean {
+        return true;
+    }
 }

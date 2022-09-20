@@ -18,6 +18,7 @@ import { G } from '../../engine/app/G';
 import { XProcess } from '../../engine/process/XProcess';
 
 import { PlayfieldGameObject } from '../playfield/PlayfieldGameObject';
+import { PlayfieldTileModel } from '../playfield/PlayfieldTileModel';
 
 //------------------------------------------------------------------------------------------
 export class Shot extends PlayfieldGameObject {
@@ -28,6 +29,8 @@ export class Shot extends PlayfieldGameObject {
 
 	public m_speed:number;
     public m_damage:number;
+
+    public m_dead:boolean;
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -49,12 +52,14 @@ export class Shot extends PlayfieldGameObject {
         this.m_speed = __params[this.m_paramIndex++];
         this.m_damage = __params[this.m_paramIndex++];
 
-		this.setCX (-16, +16, -16, +16);
+		this.setCX (-4, +4, -4, +4);
 
 		this.createSprites ();
 
 		this.script = this.addEmptyProcess ();
 		this.physics = this.addEmptyProcess ();
+
+        this.m_dead = false;
 
 		this.Physics_Script ();
         this.Loop_Script ();
@@ -95,6 +100,10 @@ export class Shot extends PlayfieldGameObject {
 
 	//------------------------------------------------------------------------------------------
 	public updatePhysics () {
+        if (this.m_dead) {
+            return;
+        }
+
 		var __radians:number = ((this.angle - 90.0) % 360) * Math.PI / 180;
 
 		var __dx:number = Math.cos (__radians) * this.m_speed;
@@ -102,7 +111,45 @@ export class Shot extends PlayfieldGameObject {
 
 		this.x += __dx;
 		this.y += __dy;
+
+        var x1:number, y1:number, x2:number, y2:number;
+
+        x1 = Math.floor (this.x + this.m_cx.left);
+        x2 = Math.floor (this.x + this.m_cx.right);
+        y1 = Math.floor (this.y + this.m_cx.top);
+        y2 = Math.floor (this.y + this.m_cx.bottom);
+
+        if (this.checkCollision (x1, y1)) return;
+        if (this.checkCollision (x2, y1)) return;
+        if (this.checkCollision (x1, y2)) return;
+        if (this.checkCollision (x2, y2)) return;
 	}
+
+	//------------------------------------------------------------------------------------------
+    public checkCollision (__x:number, __y:number):boolean {
+		var col:number, row:number;
+		var __tileWidth = this.getModel ().getTileWidth ();
+		var __tileHeight = this.getModel ().getTileHeight ();
+
+        col = Math.floor (__x / __tileWidth);
+        row = Math.floor (__y / __tileHeight);
+
+        console.log (": checkCollision: ", __x, __y, col, row);
+
+        var __tileModel:PlayfieldTileModel = this.getModel ().getTile (col, row);
+
+        if (__tileModel != null) {
+            if (__tileModel.isDestructable ()) {``  
+                this.getModel ().damageTile (col, row, this.m_damage);
+            }
+
+            this.m_dead = true;
+
+            return true;
+        }
+
+        return false;
+    }
 
 	//------------------------------------------------------------------------------------------
 	public Loop_Script ():void {
@@ -122,12 +169,17 @@ export class Shot extends PlayfieldGameObject {
                         self.killLater ();
 					}
 				);	
+
 				
 				//------------------------------------------------------------------------------------------
 				// animation
 				//------------------------------------------------------------------------------------------	
 				while (true) {
 					yield [XProcess.WAIT, 0x0100];
+
+                    if (self.m_dead) {
+                        self.killLater ();
+                    }
 				}
 
 			//------------------------------------------------------------------------------------------			

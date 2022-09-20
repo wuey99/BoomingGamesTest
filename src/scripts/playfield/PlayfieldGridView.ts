@@ -50,6 +50,7 @@ export class PlayfieldGridView extends XGameObject {
 
         this.m_playfieldGridModel.addTileAddedListener (this.onTileAdded.bind (this));
         this.m_playfieldGridModel.addTileRemovedListener (this.onTileRemoved.bind (this));
+        this.m_playfieldGridModel.addTileDamagedListener (this.onTileDamaged.bind (this));
 
 		return this;
 	}
@@ -89,7 +90,16 @@ export class PlayfieldGridView extends XGameObject {
 //------------------------------------------------------------------------------------------
     public onTileRemoved (__model:PlayfieldTileModel):void {
         if (this.m_modelToViewMap.has (__model)) {
-            
+            var __gameObject:PlayfieldTileView = this.m_modelToViewMap.get (__model);
+            __gameObject.killLater ();
+        }
+    }
+
+//------------------------------------------------------------------------------------------
+    public onTileDamaged (__model:PlayfieldTileModel):void {
+        if (this.m_modelToViewMap.has (__model)) {
+            var __gameObject:PlayfieldTileView = this.m_modelToViewMap.get (__model);
+            __gameObject.Damage_Script ();
         }
     }
 

@@ -20,6 +20,7 @@ export class PlayfieldGridModel {
 
     public m_tileAddedSignal:XSignal;
     public m_tileRemovedSignal:XSignal;
+    public m_tileDamagedSignal:XSignal;
 
     //------------------------------------------------------------------------------------------
     constructor () {
@@ -47,12 +48,14 @@ export class PlayfieldGridModel {
 
         this.m_tileAddedSignal = G.XApp.getXSignalManager ().createXSignal ();
         this.m_tileRemovedSignal = G.XApp.getXSignalManager ().createXSignal ();
+        this.m_tileDamagedSignal = G.XApp.getXSignalManager ().createXSignal ();
     }
 
     //------------------------------------------------------------------------------------------
     public cleanup ():void {
         G.XApp.getXSignalManager ().removeXSignal (this.m_tileAddedSignal);
         G.XApp.getXSignalManager ().removeXSignal (this.m_tileRemovedSignal);
+        G.XApp.getXSignalManager ().removeXSignal (this.m_tileDamagedSignal);
     }
 
     //------------------------------------------------------------------------------------------
@@ -73,6 +76,16 @@ export class PlayfieldGridModel {
     //------------------------------------------------------------------------------------------
     public removeTileRemovedListener (__id:number):void {
         this.m_tileRemovedSignal.removeListener (__id);
+    }
+
+    //------------------------------------------------------------------------------------------
+    public addTileDamagedListener (__listener:any):number {
+        return this.m_tileDamagedSignal.addListener (__listener);
+    }
+
+    //------------------------------------------------------------------------------------------
+    public removeTileDamagedListener (__id:number):void {
+        this.m_tileDamagedSignal.removeListener (__id);
     }
 
     //------------------------------------------------------------------------------------------
@@ -131,6 +144,23 @@ export class PlayfieldGridModel {
             this.m_tileRemovedSignal.fireSignal (__model);
 
             __model.cleanup ();
+        }
+    }
+
+    //------------------------------------------------------------------------------------------
+    public damageTile (__col:number, __row:number, __damage:number):void {
+        var __model:PlayfieldTileModel = this.m_tiles[__row][__col];
+
+        if (__model != null) {
+            this.m_tileDamagedSignal.fireSignal (__model);
+
+            if (__model.isDestructable ()) {
+                __model.health = Math.max (0, __model.health - __damage);
+
+                if (__model.health == 0) {
+                    this.removeTile (__col, __row);
+                }
+            }
         }
     }
 }

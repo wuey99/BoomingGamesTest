@@ -42,7 +42,6 @@ export class PlayfieldGameObject extends XGameObject {
         super.afterSetup (__params);
 
         this.m_playfieldGridView = __params[this.m_paramIndex++];
-		console.log (": playfieldGridView: ", this.m_playfieldGridView);
 		this.m_model = this.m_playfieldGridView.getModel ();
 
 		return this;

@@ -21,7 +21,6 @@ import { PlayfieldGridView } from '../playfield/PlayfieldGridView';
 import { PlayfieldGridModel } from '../playfield/PlayfieldGridModel';
 import { PlayfieldManager } from '../playfield/PlayfieldManager';
 import { PlayfieldTileView } from '../playfield/PlayfieldTileView';
-
 import { Fleet } from '../tank/Fleet';
 import { PlayfieldBlockWallModel } from './PlayfieldBlockWallModel';
 import { PlayfieldBlockWallView } from './PlayfieldBlockWallView';
@@ -31,7 +30,7 @@ import { PlayfieldBlockHayView } from './PlayfieldBlockHayView';
 //------------------------------------------------------------------------------------------
 export class TestGame extends XState {
 	public static GRID_COLS:number = 50;
-	public static GRID_ROWS:number = 25;
+	public static GRID_ROWS:number = 50;
 
 	public static TILE_WIDTH:number = 35;
 	public static TILE_HEIGHT:number = 35;

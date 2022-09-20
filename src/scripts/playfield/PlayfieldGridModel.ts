@@ -5,7 +5,7 @@ import { XSignal } from '../../engine/signals/XSignal';
 import { XSignalManager } from '../../engine/signals/XSignalManager';
 import { XType } from '../../engine/type/XType';
 
-import { PlayfieldTileModel } from './PlayfieldTIleModel';
+import { PlayfieldTileModel } from './PlayfieldTileModel';
 import { PlayfieldManager } from './PlayfieldManager';
 
 //------------------------------------------------------------------------------------------

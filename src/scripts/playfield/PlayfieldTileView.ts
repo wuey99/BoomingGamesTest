@@ -22,6 +22,7 @@ import { PlayfieldGridModel } from './PlayfieldGridModel';
 
 //------------------------------------------------------------------------------------------
 export class PlayfieldTileView extends PlayfieldGameObject {
+    public m_sprite:PIXI.AnimatedSprite;
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -39,6 +40,8 @@ export class PlayfieldTileView extends PlayfieldGameObject {
 	public afterSetup (__params:Array<any> = null):XGameObject {
         super.afterSetup (__params);
 
+        this.createSprites ();
+        
 		return this;
 	}
 
@@ -46,6 +49,19 @@ export class PlayfieldTileView extends PlayfieldGameObject {
 	public cleanup ():void {
 		super.cleanup ();
 	}
+
+	//------------------------------------------------------------------------------------------
+	public createSprites ():void {
+        this.m_sprite = this.createAnimatedSpriteX (this.getName ());
+        this.addSortableChild0 (this.m_sprite, this.getLayer (), this.getDepth (), false);
+
+		this.show ();
+	}
+
+	//------------------------------------------------------------------------------------------
+    public getName ():string {
+        return "";
+    }
 
 //------------------------------------------------------------------------------------------
 }

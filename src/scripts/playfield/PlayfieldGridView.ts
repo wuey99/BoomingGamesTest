@@ -20,12 +20,13 @@ import { XProcess } from '../../engine/process/XProcess';
 import { PlayfieldGridModel } from './PlayfieldGridModel';
 import { PlayfieldTileModel } from './PlayfieldTileModel';
 import { PlayfieldTileView } from './PlayfieldTileView';
+import { PlayfieldManager } from './PlayfieldManager';
 
 //------------------------------------------------------------------------------------------
 export class PlayfieldGridView extends XGameObject {
     public m_playfieldGridModel:PlayfieldGridModel;
 
-    public m_tileModelToViewMap:Map<PlayfieldTileModel, PlayfieldTileView>;
+    public m_modelToViewMap:Map<PlayfieldTileModel, PlayfieldTileView>;
 
 //------------------------------------------------------------------------------------------	
 	constructor () {
@@ -45,7 +46,7 @@ export class PlayfieldGridView extends XGameObject {
 
         this.m_playfieldGridModel = __params[this.m_paramIndex++];
 
-        this.m_tileModelToViewMap = new Map<PlayfieldTileModel, PlayfieldTileView> ();
+        this.m_modelToViewMap = new Map<PlayfieldTileModel, PlayfieldTileView> ();
 
         this.m_playfieldGridModel.addTileAddedListener (this.onTileAdded.bind (this));
         this.m_playfieldGridModel.addTileRemovedListener (this.onTileRemoved.bind (this));
@@ -65,14 +66,26 @@ export class PlayfieldGridView extends XGameObject {
 
 //------------------------------------------------------------------------------------------
     public onTileAdded (__model:PlayfieldTileModel):void {
-        if (!this.m_tileModelToViewMap.has (__model)) {
+        if (!this.m_modelToViewMap.has (__model)) {
+            console.log (": onTileAdded: ", __model);
 
+            var __classMap:any = PlayfieldManager.getTileClassMap (__model.getType ());
+
+            var __playfieldTile:PlayfieldTileView = this.addGameObjectAsDetachedChild (
+                __classMap.view, 0, 0.0, false
+            ) as PlayfieldTileView;
+            __playfieldTile.afterSetup ([]);
+
+            __playfieldTile.x = __model.col * __model.tileWidth;
+            __playfieldTile.y = __model.row * __model.tileHeight;
+
+            this.m_modelToViewMap.set (__model, __playfieldTile);
         }
     }
 
 //------------------------------------------------------------------------------------------
     public onTileRemoved (__model:PlayfieldTileModel):void {
-        if (this.m_tileModelToViewMap.has (__model)) {
+        if (this.m_modelToViewMap.has (__model)) {
             
         }
     }

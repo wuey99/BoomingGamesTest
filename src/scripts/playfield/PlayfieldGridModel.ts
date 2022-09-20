@@ -3,8 +3,10 @@ import { XApp } from '../../engine/app/XApp';
 import { G } from '../../engine/app/G';
 import { XSignal } from '../../engine/signals/XSignal';
 import { XSignalManager } from '../../engine/signals/XSignalManager';
+import { XType } from '../../engine/type/XType';
 
 import { PlayfieldTileModel } from './PlayfieldTIleModel';
+import { PlayfieldManager } from './PlayfieldManager';
 
 //------------------------------------------------------------------------------------------
 export class PlayfieldGridModel {
@@ -20,7 +22,7 @@ export class PlayfieldGridModel {
     public m_tileRemovedSignal:XSignal;
 
     //------------------------------------------------------------------------------------------
-    public new () {
+    constructor () {
     }
 
     //------------------------------------------------------------------------------------------
@@ -74,14 +76,40 @@ export class PlayfieldGridModel {
     }
 
     //------------------------------------------------------------------------------------------
-    public setTileFromType (__col:number, __row:number, __type:string):void {
+    public getCols ():number {
+        return this.m_cols;
     }
 
     //------------------------------------------------------------------------------------------
-    public setTileFromModel (__col:number, __row:number, __model:PlayfieldTileModel):void {
+    public getRows ():number {
+        return this.m_rows;
+    }
+    
+    //------------------------------------------------------------------------------------------
+    public getTileWidth ():number {
+        return this.m_tileWidth;
+    }
+
+    //------------------------------------------------------------------------------------------
+    public getTileHeight ():number {
+        return this.m_tileHeight;
+    }
+
+    //------------------------------------------------------------------------------------------
+    public setTileFromType (__col:number, __row:number, __type:string):void {
+        var __classMap:any = PlayfieldManager.getTileClassMap (__type);
+
+        this.setTileFromClass (__col, __row, __classMap.model);
+    }
+
+    //------------------------------------------------------------------------------------------
+    public setTileFromClass (__col:number, __row:number, __class:any):void {
         if (this.m_tiles[__row][__col] != null) {
             this.removeTile (__col, __row);
         }
+
+        var __model:PlayfieldTileModel = XType.createInstance (__class) as PlayfieldTileModel;
+        __model.setup (this, __col, __row);
 
         this.m_tiles[__row][__col] = __model;
 

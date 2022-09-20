@@ -173,133 +173,133 @@ mainly using it for my own games and occasional freelance work
 
 classes
 
-\geom
-    XPoint.ts
-    XRect.ts
+    \geom
+        XPoint.ts
+        XRect.ts
 
-    wrappers for PIXI.Point and PIXI.Rectangle.  I eventually want run this code server-side on smartfox server 2X without any framework (PixiJS) dependencies.  but currently the code still relies heavily on PIXI.Point
+        wrappers for PIXI.Point and PIXI.Rectangle.  I eventually want run this code server-side on smartfox server 2X without any framework (PixiJS) dependencies.  but currently the code still relies heavily on PIXI.Point
 
-\bullet
-    XBulletCollisonList.ts
-    XBulletCollisionManager.ts
+    \bullet
+        XBulletCollisonList.ts
+        XBulletCollisionManager.ts
 
-    classes designed to handle rectangular collision checking between two GameObjects
+        classes designed to handle rectangular collision checking between two GameObjects
 
-\collision
-    XObjectCollisionList.ts
-    XObjectCollisionManager.ts
+    \collision
+        XObjectCollisionList.ts
+        XObjectCollisionManager.ts
 
-    classes designed to handle GameObject to GameObject collisions.  primarily current use-case is
-    for moving platforms
+        classes designed to handle GameObject to GameObject collisions.  primarily current use-case is
+        for moving platforms
 
-\gameobject
-    XGameObject.ts
-    XGameObjectCX.ts
+    \gameobject
+        XGameObject.ts
+        XGameObjectCX.ts
 
-    primary class to handle game objects.  huge monolithic monstrosity.  hoping to refactor this eventually
-    to use a component-based design.
+        primary class to handle game objects.  huge monolithic monstrosity.  hoping to refactor this eventually
+        to use a component-based design.
 
-    it has factory methods for handling all manner of things: creating child game objects, managed sprite creation. managed creation of sub-threads, signals, etc, etc.  the idea is that when a GameObject
-    is disposed, everything created using the factory methods are managed and auto-cleaned up.
+        it has factory methods for handling all manner of things: creating child game objects, managed sprite creation. managed creation of sub-threads, signals, etc, etc.  the idea is that when a GameObject
+        is disposed, everything created using the factory methods are managed and auto-cleaned up.
 
-\level
-    XLevel.ts
-    XMickey.ts
+    \level
+        XLevel.ts
+        XMickey.ts
 
-    high-level classes to handle large scrolling levels
+        high-level classes to handle large scrolling levels
 
-\model
-    XModelBase.ts
+    \model
+        XModelBase.ts
 
-    intended to be a base-class for all models (i.e. handle signals/slots, etc)
+        intended to be a base-class for all models (i.e. handle signals/slots, etc)
 
-\pool
-    XClassPoolManager.ts
-    XObjectPoolManager.ts
-    XSubObjectPoolManager.ts
+    \pool
+        XClassPoolManager.ts
+        XObjectPoolManager.ts
+        XSubObjectPoolManager.ts
 
-    object-pooling classes.  this was critical for AS3 because of the performance issues related to class 
-    instantiation.  Not sure how important is is for modern javascript.  but i ported it over (first to haxe and then to typescript)
+        object-pooling classes.  this was critical for AS3 because of the performance issues related to class 
+        instantiation.  Not sure how important is is for modern javascript.  but i ported it over (first to haxe and then to typescript)
 
-\process
-    XProcess.ts
-    XProcessManager.ts
-    XProcessManager.ts
+    \process
+        XProcess.ts
+        XProcessManager.ts
+        XProcessManager.ts
 
-    classes designed to support "multi-threaded" code using javascript es6 generators
+        classes designed to support "multi-threaded" code using javascript es6 generators
 
-    I used them in the prgrammer test.  it's still buggy!  hopefully the game will be stable
+        I used them in the prgrammer test.  it's still buggy!  hopefully the game will be stable
 
-    an example is the tank shooting bullets code
+        an example is the tank shooting bullets code
 
-    	this.script.addProcess (
-			function * () {
-				var i:number;
+            this.script.addProcess (
+                function * () {
+                    var i:number;
 
-				self.m_firing = true;
+                    self.m_firing = true;
 
-				for (i = 0; i < self.m_bullets; i++) {
-					var __shot:Shot = self.m_playfieldGridView.addGameObjectAsDetachedChild (Shot, 0, 0.0, false) as Shot;
-					__shot.afterSetup ([self.m_playfieldGridView, self.angle, 14.0, self.m_damage]);
+                    for (i = 0; i < self.m_bullets; i++) {
+                        var __shot:Shot = self.m_playfieldGridView.addGameObjectAsDetachedChild (Shot, 0, 0.0, false) as Shot;
+                        __shot.afterSetup ([self.m_playfieldGridView, self.angle, 14.0, self.m_damage]);
 
-					__shot.x = self.x;
-					__shot.y = self.y;
+                        __shot.x = self.x;
+                        __shot.y = self.y;
 
-					yield [XProcess.WAIT1000, 0.125 * 1000];
-				}
+                        yield [XProcess.WAIT1000, 0.125 * 1000];
+                    }
 
-				self.m_firing = false;
-			}
-		);	
+                    self.m_firing = false;
+                }
+            );	
 
-        so it shoots "m_bullets" spaced every 1/8th of a second.  this is a standard pattern I used previously
-        and I prefer it over state-based logic.
+            so it shoots "m_bullets" spaced every 1/8th of a second.  this is a standard pattern I used previously
+            and I prefer it over state-based logic.
 
-    \resource
-        classes designed to handle asset management, resource loading, etc
+        \resource
+            classes designed to handle asset management, resource loading, etc
 
-    \sfs
-        experimental.  Smartfox Server 2X bindings.  my plan is to eventually do multiplayer game.
-        hopefully I can transpile typescript code into javascript es5 and run it on the back-end using
-        java's javascript nashorn interpreter
+        \sfs
+            experimental.  Smartfox Server 2X bindings.  my plan is to eventually do multiplayer game.
+            hopefully I can transpile typescript code into javascript es5 and run it on the back-end using
+            java's javascript nashorn interpreter
 
-    \signals
-        a simple signals and slots implementation.  i'm currently using it in the programmer test
-        to signal grid changes to the view
+        \signals
+            a simple signals and slots implementation.  i'm currently using it in the programmer test
+            to signal grid changes to the view
 
-    \sound
-        wrapper classes for HowlerJS.  added support for priority, interruption and chaining sounds
+        \sound
+            wrapper classes for HowlerJS.  added support for priority, interruption and chaining sounds
 
-    \state
-        misnamed.  it's really scene management classes.  I have one game state in the programmer's test,
-        "TestGame"  but if I wanted to add a game over or results state, it's easy to add in
+        \state
+            misnamed.  it's really scene management classes.  I have one game state in the programmer's test,
+            "TestGame"  but if I wanted to add a game over or results state, it's easy to add in
 
-    \task
-        a quasi "multi-threaded" system that I implemented in AS3, that uses op-codes and function callbacks.
-        my hope is that \process will eventually replace it.  the programmer test uses mostly \process now
-        (at the risk of introducing bugs)
+        \task
+            a quasi "multi-threaded" system that I implemented in AS3, that uses op-codes and function callbacks.
+            my hope is that \process will eventually replace it.  the programmer test uses mostly \process now
+            (at the risk of introducing bugs)
 
-    \texture
-        texture management code.  i don't use pre-made spritesheets.  prefer to create them dynamically.
-        (even though the creation process is argubablly slower)  this allows me to dynamically create sprite sheets from svg's.  Makes use of "MaxRectPacker", something originally implemented by Jukka Jylänki
-        and ported to various languages.  
-    
-    \sprites
-        various sprites and container classes.  
+        \texture
+            texture management code.  i don't use pre-made spritesheets.  prefer to create them dynamically.
+            (even though the creation process is argubablly slower)  this allows me to dynamically create sprite sheets from svg's.  Makes use of "MaxRectPacker", something originally implemented by Jukka Jylänki
+            and ported to various languages.  
+        
+        \sprites
+            various sprites and container classes.  
 
-    \ui
-        still a work-in-progress.  various ui classes (buttons, hbox, vbox layouts, etc) that can be 
-        declaratively defined as xml
+        \ui
+            still a work-in-progress.  various ui classes (buttons, hbox, vbox layouts, etc) that can be 
+            declaratively defined as xml
 
-    \utils
-        various utility classes
+        \utils
+            various utility classes
 
-    \xmap
-        classes that support large scrolling levels.  I didn't use it for the programmer tests
-        because the tile sixe is fixed at 64 x 64.
+        \xmap
+            classes that support large scrolling levels.  I didn't use it for the programmer tests
+            because the tile sixe is fixed at 64 x 64.
 
-    \xml
-        xml wrapper classes.
+        \xml
+            xml wrapper classes.
 
 Here are the classes (I think) i'm using for the programmer's test
 

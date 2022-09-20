@@ -177,7 +177,9 @@ classes
         XPoint.ts
         XRect.ts
 
-        wrappers for PIXI.Point and PIXI.Rectangle.  I eventually want run this code server-side on smartfox server 2X without any framework (PixiJS) dependencies.  but currently the code still relies heavily on PIXI.Point
+        wrappers for PIXI.Point and PIXI.Rectangle.  I eventually want run this code server-side on smartfox
+        server 2X without any framework (PixiJS) dependencies. but currently the code still relies heavily
+        on PIXI.Point
 
     \bullet
         XBulletCollisonList.ts
@@ -196,8 +198,8 @@ classes
         XGameObject.ts
         XGameObjectCX.ts
 
-        primary class to handle game objects.  huge monolithic monstrosity.  hoping to refactor this eventually
-        to use a component-based design.
+        primary class to handle game objects.  huge monolithic monstrosity.  hoping to refactor this
+        eventually to use a component-based design.
 
         it has factory methods for handling all manner of things: creating child game objects, managed sprite creation. managed creation of sub-threads, signals, etc, etc.  the idea is that when a GameObject
         is disposed, everything created using the factory methods are managed and auto-cleaned up.

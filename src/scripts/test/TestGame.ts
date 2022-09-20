@@ -187,7 +187,6 @@ export class TestGame extends XState {
 		) as PlayfieldGridView;
 		__playfieldGridView.afterSetup ([__playfieldGridModel]);
 		
-
 		//------------------------------------------------------------------------------------------
 		var __col:number, __row:number;
 

@@ -16,6 +16,9 @@ import { XGameObject} from '../../engine/gameobject/XGameObject';
 import { XState } from '../../engine/state/XState';``
 import { GUID } from '../../engine/utils/GUID';
 import { XSimpleXMLNode } from '../../engine/xml/XSimpleXMLNode';
+import { G } from '../../engine/app/G';
+import { XTextSprite } from '../../engine/sprite/XTextSprite';
+import { XTextSpriteButton } from '../../engine/ui/XTextSpriteButton';
 
 import { PlayfieldGridView } from '../playfield/PlayfieldGridView';
 import { PlayfieldGridModel } from '../playfield/PlayfieldGridModel';
@@ -41,6 +44,9 @@ export class TestGame extends XState {
 	public static TOTAL_HAY_COUNT:number = 25;
 	public static TOTAL_WALL_COUNT:number = 50;
 
+	public m_playfieldGridView:PlayfieldGridView;
+	public m_scaleRatio:number;
+
 //------------------------------------------------------------------------------------------	
 	constructor () {
 		super ();
@@ -62,7 +68,45 @@ export class TestGame extends XState {
 
 		this.registerTileTypes ();
 
-		this.createPlayfield ();
+		this.createBitmapFont (
+            "Aller",
+            {
+                fontFamily: "Nunito",
+                fontSize: 60,
+                strokeThickness: 0,
+                fill: "0xffffff",         
+            },
+            {chars: this.getBitmapFontChars ()}
+		);
+
+		var __startButton:XTextSpriteButton = this.addGameObjectAsChild (XTextSpriteButton, 7, 0.0, false) as XTextSpriteButton;
+		__startButton.afterSetup ([
+			"TestButtonToo",
+			true, 10, 300, 100,
+			"Start!",
+			"Aller",
+			50,
+			0x0000ff,
+			0xff0000,
+			0x00ff00,
+			0x0000ff,
+			0x0000ff,
+			false,
+			"center", "center"
+		]);
+
+		__startButton.x = (G.SCREEN_WIDTH - 300) / 2;
+		__startButton.y = (G.SCREEN_HEIGHT - 100) / 2;
+
+		__startButton.addMouseUpListener (() => {
+			__startButton.killLater ();
+
+			this.createPlayfield ();
+
+			this.scalePlayfieldToScreen ();
+
+			this.showInstructions ();
+		});
 
 		return this;
 	}
@@ -72,6 +116,38 @@ export class TestGame extends XState {
         super.cleanup ();
 	}
 	
+//------------------------------------------------------------------------------------------
+	public showInstructions ():void {
+		var __textSprite:XTextSprite = this.createXTextSprite (
+			600,
+			64,
+			"LEFT / RIGHT - TURNS TANK.\nUP - MOVES TANK.\nSPACE - SHOOTS.\nT - SWITCH TANKS.",
+			"Aller",
+			35,
+			0xff0000,
+			true,
+			"center", "center"
+		);
+		this.addSortableChild (__textSprite, 7, 0.0, true);
+
+		__textSprite.x = (this.m_playfieldGridView.x - __textSprite.width) / 2;
+		__textSprite.y = (G.SCREEN_HEIGHT - __textSprite.height) / 2;
+	}
+
+//------------------------------------------------------------------------------------------
+	public scalePlayfieldToScreen ():void {
+		var __playfieldWidth:number, __playfieldHeight:number;
+
+		__playfieldWidth = TestGame.GRID_COLS * TestGame.TILE_WIDTH;
+		__playfieldHeight = TestGame.GRID_ROWS * TestGame.TILE_HEIGHT;
+
+		var __scaleRatio:number = this.m_scaleRatio = Math.min (__playfieldWidth / G.SCREEN_WIDTH, __playfieldHeight / G.SCREEN_HEIGHT);
+
+		this.m_playfieldGridView.scale.x = this.m_playfieldGridView.scale.y = __scaleRatio;
+
+		this.m_playfieldGridView.x = (G.SCREEN_WIDTH - __playfieldWidth * __scaleRatio) / 2;
+	}
+
 //------------------------------------------------------------------------------------------
 	public registerTileTypes ():void {
 		PlayfieldManager.registerTileType (
@@ -106,7 +182,7 @@ export class TestGame extends XState {
 		//------------------------------------------------------------------------------------------
 		// create playfield view
 		//------------------------------------------------------------------------------------------
-		var __playfieldGridView:PlayfieldGridView = this.addGameObjectAsDetachedChild (
+		var __playfieldGridView:PlayfieldGridView = this.m_playfieldGridView = this.addGameObjectAsDetachedChild (
 			PlayfieldGridView, 0, 0.0, false
 		) as PlayfieldGridView;
 		__playfieldGridView.afterSetup ([__playfieldGridModel]);

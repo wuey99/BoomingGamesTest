@@ -126,7 +126,7 @@ game classes:
             both Shot and Tank knows about the PlayfieldGridView, PlayfieldGridModel and PlayfieldTileModel.
 
             Motion of tanks is free-form, instead of being locked to a grid.  collision checking is done
-            by checking the sprite's internal rectangle against the blocks on the grid.
+            by checking the sprite's internal rectangle against the block's rectangle on the grid.
 
     Test
         \src\test
@@ -303,8 +303,8 @@ classes
 
 Here are the classes (I think) i'm using for the programmer's test
 
-\gameobject (GameObjects)
-\signals (Signals and Slots, primarily used for MVC state change signalling)
-\texture (for dynamic sprite sheet generation)
-\state (for state/scene management)
-\process (for animation and game logic handling)
+    \gameobject (GameObjects)
+    \signals (Signals and Slots, primarily used for MVC state change signalling)
+    \texture (for dynamic sprite sheet generation)
+    \state (for state/scene management)
+    \process (for animation and game logic handling)

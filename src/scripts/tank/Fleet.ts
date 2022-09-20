@@ -19,6 +19,8 @@ import { XProcess } from '../../engine/process/XProcess';
 
 import { Tank } from './Tank';
 import { PlayfieldGameObject } from '../playfield/PlayfieldGameObject';
+import { PlayfieldGridModel } from '../playfield/PlayfieldGridModel';
+import { TestGame } from '../test/TestGame';
 
 //------------------------------------------------------------------------------------------
 export class Fleet extends PlayfieldGameObject {
@@ -116,47 +118,37 @@ export class Fleet extends PlayfieldGameObject {
     public createObjects ():void {
         this.m_tanks = new Map<number, Tank> ();
 
-		var __tank:Tank;
+        this.createTank (Tank.GREEN, [this.m_playfieldGridView, Tank.GREEN, 1, 25]);
+        this.createTank (Tank.BLUE, [this.m_playfieldGridView, Tank.BLUE, 3, 20]);
+        this.createTank (Tank.RED, [this.m_playfieldGridView, Tank.RED, 2, 10]);
+    }
+
+    //------------------------------------------------------------------------------------------
+    public createTank (__tankID:number, __params:Array<any>):void {
+        var __tank:Tank;
         
-        var __x:number = 512;
-        var __y:number = 512;
+        var __model:PlayfieldGridModel = this.m_playfieldGridView.getModel ();
 
-        //------------------------------------------------------------------------------------------
-        // green tank
-        //------------------------------------------------------------------------------------------
+        var __col:number, __row:number;
+
         __tank = this.m_playfieldGridView.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
-		__tank.afterSetup ([this.m_playfieldGridView, Tank.GREEN, 1, 25]);
+		__tank.afterSetup (__params);
 
-		__tank.x = __x;
-		__tank.y = __y;
+        var __success:boolean = false;
 
-        this.m_tanks.set (Tank.GREEN, __tank);
+        while (!__success) {
+            __col = Math.floor (Math.random () * TestGame.GRID_COLS);
+            __row = Math.floor (Math.random () * TestGame.GRID_ROWS);
 
-        __x += 256;
+            if (__model.getTile (__col, __row) == null) {
+                __tank.x = __col * __model.getTileWidth () + __model.getTileWidth () - 16;
+                __tank.y = __row * __model.getTileHeight () + __model.getTileHeight () - 16;
 
-        //------------------------------------------------------------------------------------------
-        // blue tank
-        //------------------------------------------------------------------------------------------
-        __tank = this.m_playfieldGridView.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
-		__tank.afterSetup ([this.m_playfieldGridView, Tank.BLUE, 3, 20]);
+                __success = true;
+            }
+        }
 
-		__tank.x = __x;
-		__tank.y = __y;
-
-        this.m_tanks.set (Tank.BLUE,__tank);
-
-        __x += 256;
-
-        //------------------------------------------------------------------------------------------
-        // red tank
-        //------------------------------------------------------------------------------------------
-        __tank = this.m_playfieldGridView.addGameObjectAsDetachedChild (Tank, 0, 0.0, false) as Tank;
-		__tank.afterSetup ([this.m_playfieldGridView, Tank.RED, 2, 10]);
-
-		__tank.x = __x;
-		__tank.y = __y;
-
-        this.m_tanks.set (Tank.RED, __tank);
+        this.m_tanks.set (__tankID, __tank);
     }
 
 	//------------------------------------------------------------------------------------------

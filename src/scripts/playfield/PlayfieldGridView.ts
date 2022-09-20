@@ -60,6 +60,11 @@ export class PlayfieldGridView extends XGameObject {
 	}
 
 //------------------------------------------------------------------------------------------
+    public getModel ():PlayfieldGridModel {
+        return this.m_playfieldGridModel;
+    }
+
+//------------------------------------------------------------------------------------------
     public getPlayfieldGridModel ():PlayfieldGridModel {
         return this.m_playfieldGridModel;
     }
@@ -67,8 +72,6 @@ export class PlayfieldGridView extends XGameObject {
 //------------------------------------------------------------------------------------------
     public onTileAdded (__model:PlayfieldTileModel):void {
         if (!this.m_modelToViewMap.has (__model)) {
-            console.log (": onTileAdded: ", __model);
-
             var __classMap:any = PlayfieldManager.getTileClassMap (__model.getType ());
 
             var __playfieldTile:PlayfieldTileView = this.addGameObjectAsDetachedChild (

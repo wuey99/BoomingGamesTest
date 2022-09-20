@@ -122,11 +122,16 @@ game classes:
             Tank.ts
                 one of 3 tanks manipulated by the player.  use arrows to turn and move forward.  space bar
                 to shoot a bullet.
-
+            Cursor.ts
+                I added an active tank cursor because it bugged me that it wasn't immediate what the active
+                tank was.
+                
             both Shot and Tank knows about the PlayfieldGridView, PlayfieldGridModel and PlayfieldTileModel.
 
             Motion of tanks is free-form, instead of being locked to a grid.  collision checking is done
             by checking the sprite's internal rectangle against the block's rectangle on the grid.
+            
+
 
     Test
         \src\test

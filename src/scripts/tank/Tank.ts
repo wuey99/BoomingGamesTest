@@ -254,7 +254,7 @@ export class Tank extends PlayfieldGameObject {
 			row = Math.floor (__y / __tileHeight);
 
 			if (this.getModel ().getTile (col, row) != null) {
-				this.m_CX_Collide_Flag |= XGameObjectCX.CX_COLLIDE_LF;
+				this.m_CX_Collide_Flag |= Tank.CX_COLLIDE_LF;
                     
 				this.x = (x1 + __tileWidth - this.m_cx.left);
 				
@@ -289,7 +289,7 @@ export class Tank extends PlayfieldGameObject {
 			row = Math.floor (__y / __tileHeight);
 
 			if (this.getModel ().getTile (col, row) != null) {
-				this.m_CX_Collide_Flag |= XGameObjectCX.CX_COLLIDE_RT;
+				this.m_CX_Collide_Flag |= Tank.CX_COLLIDE_RT;
                     
 				this.x = (x2 - (this.m_cx.right) - 1);
 				
